@@ -1,0 +1,39 @@
+@import '_variables';
+
+// body {
+//     overflow: hidden;
+// }
+
+h1 {
+    color: $red-text;
+}
+
+.width {
+    width: inherit;
+}
+
+// .force-overflow {
+//     min-height: 250px;
+// }
+
+#overflowTest {
+    color: white;
+    padding: 0;
+    min-width: auto;
+    height: 538px;
+    overflow-y: auto;
+}
+
+#overflowTest::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+    // display: none;
+}
+
+#overflowTest::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+#overflowTest::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+}
