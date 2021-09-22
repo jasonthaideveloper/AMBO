@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 8080;
+
+const db = require('./config/db');
+
+// Connect to DB
+db.connect();
 
 app.get('/', (req, res) => {
     console.log(req);
