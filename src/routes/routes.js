@@ -6,7 +6,7 @@ const donhangRouter = require('./donhang-route');
 const tongquanRouter = require('./tongquan-route');
 
 function route(app) {
-    app.use                          ('/thuoc-tinh-chung', thuoctinhchungRouter);
+    app.use('/thuoc-tinh-chung', thuoctinhchungRouter);
 
     app.use('/nha-cung-cap', nhacungcapRouter);
 
@@ -16,7 +16,7 @@ function route(app) {
 
     app.use('/don-hang', donhangRouter);
 
-    app.use('/',                              tongquanRouter);
+    app.use('/', tongquanRouter);
 }
 
 module.exports = route;
