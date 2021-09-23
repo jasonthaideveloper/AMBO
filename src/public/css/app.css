@@ -7,15 +7,16 @@ h1 {
 
 #overflowTest {
   min-width: auto;
-  min-height: 520px; }
+  min-height: 596px; }
 
 #menu {
   color: white;
   padding: 0;
   min-width: auto;
-  height: 538px;
+  max-height: 600px;
   overflow-y: scroll;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  background: #000000; }
 
 #menu ul {
   background: #000000;
