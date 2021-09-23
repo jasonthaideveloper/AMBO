@@ -24,14 +24,34 @@ console.log("Path", path.join(__dirname, '/resources/views'));
 // Get static file from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/thuoc-tinh-chung', (req, res) => {
+    console.log(req);
+    res.render('thuoc-tinh-chung');
+})
+
+app.get('/nha-cung-cap', (req, res) => {
+    console.log(req);
+    res.render('nha-cung-cap');
+})
+
+app.get('/khach-hang', (req, res) => {
+    console.log(req);
+    res.render('khach-hang');
+})
+
 app.get('/san-pham', (req, res) => {
     console.log(req);
-    res.render('partials/san-pham');
+    res.render('san-pham');
+})
+
+app.get('/don-hang', (req, res) => {
+    console.log(req);
+    res.render('don-hang');
 })
 
 app.get('/', (req, res) => {
     console.log(req);
-    res.render('nav-v');
+    res.render('tong-quan');
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));

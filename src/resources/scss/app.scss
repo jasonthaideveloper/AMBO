@@ -1,39 +1,65 @@
 @import '_variables';
 
-// body {
-//     overflow: hidden;
-// }
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
 
 h1 {
     color: $red-text;
 }
 
-.width {
-    width: inherit;
+#overflowTest {
+    min-width: auto;
+    min-height: 520px;
 }
 
-// .force-overflow {
-//     min-height: 250px;
-// }
-
-#overflowTest {
+#menu {
     color: white;
     padding: 0;
     min-width: auto;
     height: 538px;
-    overflow-y: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-#overflowTest::-webkit-scrollbar {
+#menu ul {
+    background: #000000;
+    min-width: auto;
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+}
+
+#menu li {
+    min-width: auto;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 1em;
+}
+
+#menu li a {
+    text-decoration: none;
+    color: #e8e8e8;
+    font-weight: bold;
+    display: block;
+}
+
+#menu li:hover {
+    background: #3498db;
+}
+
+#menu::-webkit-scrollbar {
     width: 6px;
-    background-color: #F5F5F5;
-    // display: none;
+    // background-color: #F5F5F5;
 }
 
-#overflowTest::-webkit-scrollbar-thumb {
-    background-color: #000000;
+#menu::-webkit-scrollbar-thumb {
+    background-color: #3498db;
 }
 
-#overflowTest::-webkit-scrollbar-track {
-    background-color: #F5F5F5;
-}
+// #menu::-webkit-scrollbar-track {
+//     // background-color: #F5F5F5;
+// }
+
