@@ -2,6 +2,9 @@ body {
   overflow-y: hidden;
   overflow-x: hidden; }
 
+textarea {
+  resize: none; }
+
 h1 {
   color: violet; }
 
@@ -45,4 +48,19 @@ h1 {
   width: 6px; }
 
 #menu::-webkit-scrollbar-thumb {
+  background-color: #3498db; }
+
+#body {
+  min-width: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 630px; }
+
+#body::-webkit-scrollbar {
+  width: 6px; }
+
+#body::-webkit-scrollbar-thumb {
+  background-color: #3498db; }
+
+.hover:hover {
   background-color: #3498db; }

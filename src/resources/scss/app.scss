@@ -5,6 +5,8 @@ body {
     overflow-x: hidden;
 }
 
+textarea { resize:none; }
+
 h1 {
     color: $red-text;
 }
@@ -64,3 +66,22 @@ h1 {
 //     // background-color: #F5F5F5;
 // }
 
+#body {
+    min-width: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 630px;
+}
+
+#body::-webkit-scrollbar {
+    width: 6px;
+    // background-color: #F5F5F5;
+}
+
+#body::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+}
+
+.hover:hover {
+    background-color: #3498db;
+}
