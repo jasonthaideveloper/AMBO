@@ -1,114 +1,157 @@
 <div class="container-fluid mt-3">
-    <h2>Danh sách Tỉnh / Thành phố</h2>
-    <ul class="list-group mt-3">
-        <li class="list-group-item">
-            <form id="city" class="mt-3 mb-3 form-inline" method="POST">
-                <label for="city">Tỉnh / Thành phố</label>
-                <div class="form-group mr-3 ml-3">
-                    <input type="text" class="form-control focus" id="city" name="cityprovince" value="{{city.cityprovince}}">
+    <div>
+        <h2>Danh sách Tỉnh / Thành phố</h2>
+        <div class="d-flex justify-content-between">
+            <a href="tinh-thanh-pho/kho-luu-tru" type="button" class="btn btn-primary btn-sm"><i class="fas fa-archive"></i> Lưu trữ <span class="badge badge-light">{{deletedCount}}</span></a>
+            <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"><i
+                    class="fas fa-plus"></i>
+                Thêm mới</a>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-primary">Thêm</button>
-            </form>
-            <table class="table table-hover table-sm" id="#myTable">
-                <thead>
-                    <tr class="text-center">
-                        <th scope="col">#</th>
-                        <th scope="col">Tỉnh / Thành phố</th>
-                        <th scope="col">Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each cities}}
-                    <tr class="text-center">
-                        <th scope="row">{{sum @index 1}}</th>
-                        <td>{{this.cityprovince}}</td>
-                        <td class="text-center">
-                            
-                            <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Sửa Tỉnh / Thành phố</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <form id="city-form" method="POST">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control focus" id="city"
-                                                        name="cityprovince" value="{{city.cityprovince}}">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary">Lưu</button>
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            {{!-- <a href="/tinh-thanh-pho/{{this._id}}/edit" type="button" class="btn btn-link"
-                                data-toggle="modal" data-target="#modal-edit">
-                                Sửa {{this.cityprovince}}
-                            </a> --}}
-                            <a href="/tinh-thanh-pho/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-                            <a href="" class="btn btn-link text-danger">Xóa</a>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                <div class="modal-body">
+                    <form id="add-city" class="mt-3 mb-3" method="POST">
+                        <label for="add-city">Tỉnh / Thành phố</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-sm focus" id="city" name="cityprovince"
+                                value="{{city.cityprovince}}">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-add-cityprovince" type="submit" class="btn btn-primary btn-sm">Lưu lại</button>
+                    <button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <table class="table table-hover table-sm" id="cityprovince-table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Tỉnh / Thành phố</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each cities}}
+                <tr class="text-center">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.cityprovince}}</td>
+                    <td class="text-center">
+                        <a type="button" class="mr-4" data-toggle="modal" data-id="{{this._id}}"
+                            data-cityprovince="{{this.cityprovince}}" data-target="#modal-edit">Sửa</a>
+                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}"
+                            data-id="{{this._id}}" data-cityprovince="{{this.cityprovince}}"
+                            data-target="#modal-delete">
+                            Lưu trữ
                         </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </li>
-    </ul>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 </div>
-{{!-- {{#each city}}
-<!-- Modal -->
+
 <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sửa Tỉnh / Thành phố</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form id="city-form" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control focus" id="city" name="cityprovince"
-                            value="{{city.cityprovince}}">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                <label for="edit-city">Tỉnh / Thành phố</label>
+                <form name="edit-city" class="mb-3" method="POST">
+                    <input type="text" class="form-control form-control-sm focus" id="edit-city" name="cityprovince">
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-edit-cityprovince" type="submit" class="btn btn-info btn-sm">Lưu lại</button>
+                <button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="delete-city" class="mt-3 mb-3 form-inline" method="POST"></form>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Lưu trữ</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-cityprovince" type="submit" class="btn btn-danger btn-sm">Có</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Không</button>
             </div>
 
         </div>
     </div>
 </div>
-{{/each}} --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        var cityprovinceId, cityprovince;
+        var addCity = document.forms['add-city'];
+        var editCity = document.forms['edit-city'];
+        var deleteCity = document.forms['delete-city'];
+        var btnAddCityProvince = document.getElementById('btn-add-cityprovince');
+        var btnEditCityProvince = document.getElementById('btn-edit-cityprovince');
+        var btnDeleteCityProvince = document.getElementById('btn-delete-cityprovince');
+
+        btnAddCityProvince.onclick = function () {
+            addCity.submit();
+        }
+
+        $('#modal-edit').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            cityprovinceId = button.data('id');
+            cityprovince = button.data('cityprovince');
+            var modal = $(this);
+            modal.find('.modal-body input').val(cityprovince);
+        })
+
+        btnEditCityProvince.onclick = function () {
+            editCity.action = '/tinh-thanh-pho/' + cityprovinceId + '?_method=PUT';
+            editCity.submit();
+        }
+
+        $('#modal-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            cityprovinceId = button.data('id');
+            cityprovince = button.data('cityprovince');
+            var modal = $(this);
+            modal.find('.modal-body').text('Bạn có chắc muốn đưa ' + cityprovince + ' vào kho lưu trữ không?');
+        })
+
+        btnDeleteCityProvince.onclick = function () {
+            deleteCity.action = '/tinh-thanh-pho/' + cityprovinceId + '/storage?_method=DELETE';
+            deleteCity.submit();
+        }
+
+        $(document).ready(function () {
+            $('#cityprovince-table').DataTable();
+        });
+    })
+</script>

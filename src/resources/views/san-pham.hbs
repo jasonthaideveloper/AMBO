@@ -1,8 +1,247 @@
-<h2 class="mt-3">Quản lý sản phẩm</h2>
-<ul class="list-group mt-3">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-    <li class="list-group-item">A fourth item</li>
-    <li class="list-group-item">And a fifth one</li>
-</ul>
+<div class="container-fluid mt-3">
+    <h2>Danh sách Sản phẩm</h2>
+    <ul class="list-group mt-3">
+        <li class="list-group-item">
+            <div class="form-group">
+                <form id="city" class="mb-3" method="POST">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="supplier-name">Tên nhà cung cấp</label>
+                                <input type="text" class="form-control form-control-sm focus" id="supplier-name"
+                                    name="supplierName">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="supplier-phone-number">Số điện thoại</label>
+                                <input type="text" class="form-control form-control-sm focus" id="supplier-phone-number"
+                                    name="phoneNumber">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="supplier-address">Địa chỉ</label>
+                                <input type="text" class="form-control form-control-sm focus" id="supplier-address"
+                                    name="address">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label for="supplier-district">Quận / Huyện</label>
+                                <select class="form-control form-control-sm mr-sm-2" id="supplier-district"
+                                    name="district">
+                                    <option selected>Chọn Quận / Huyện...</option>
+                                    {{#each districts}}
+                                    <option value="{{this.district}}">{{this.district}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="supplier-cityprivince">Tỉnh / Thành phố</label>
+                                <select class="form-control form-control-sm mr-sm-2" id="supplier-cityprivince"
+                                    name="cityProvince">
+                                    <option selected>Chọn Tỉnh / Thành phố...</option>
+                                    {{#each cities}}
+                                    <option value="{{this.cityprovince}}">{{this.cityprovince}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                {{!-- <img src="..." alt="..." class="img-thumbnail">
+                                <label for="supplier-img" class="btn btn-secondary">Chọn hình ảnh</label>
+                                <input style="visibility:hidden;" type="file" class="form-control-file"
+                                    placeholder="Chọn hình ảnh" id="supplier-img"> --}}
+                                <label for="supplier-description">Mô tả</label>
+                                <textarea class="form-control form-control-sm" id="supplier-description" rows="3"
+                                    name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Thêm mới</button>
+                </form>
+            </div>
+            <table class="table table-hover table-sm" id="product-table">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">#</th>
+                        <th scope="col">Nhà cung cấp</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Quận / Huyện</th>
+                        <th scope="col">Tỉnh / Thành phố</th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each suppliers}}
+                    <tr class="text-center">
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td><a href="/chi-tiet">{{this.supplierName}}</a></td>
+                        <td>{{this.phoneNumber}}</td>
+                        <td>{{this.address}}</td>
+                        <td>{{this.district}}</td>
+                        <td>{{this.cityProvince}}</td>
+                        <td class="text-center">
+                            <a type="button" class="mr-4" data-toggle="modal" data-id="{{this._id}}"
+                                data-supplier-name="{{this.supplierName}}" data-supplier-phone="{{this.phoneNumber}}"
+                                data-supplier-address="{{this.address}}" data-supplier-district="{{this.district}}"
+                                data-supplier-cityprovince="{{this.cityProvince}}"
+                                data-supplier-description="{{this.description}}" data-target="#modal-edit">Sửa</a>
+                            <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}" data-supplier-name="{{this.supplierName}}"
+                                data-target="#modal-delete">
+                                Xóa
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </li>
+    </ul>
+</div>
+
+<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="edit-supplier" class="mb-3" method="POST">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="supplier-name">Tên nhà cung cấp</label>
+                                <input type="text" class="form-control form-control-sm focus" id="supplier-name"
+                                    name="supplierName">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="supplier-phone-number">Số điện thoại</label>
+                                <input type="text" class="form-control form-control-sm focus" id="supplier-phone-number"
+                                    name="phoneNumber">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="supplier-address">Địa chỉ</label>
+                                <input type="text" class="form-control form-control-sm focus" id="supplier-address"
+                                    name="address">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label for="supplier-district">Quận / Huyện</label>
+                                <select class="form-control form-control-sm mr-sm-2" id="supplier-district"
+                                    name="district">
+                                    <option>Chọn Quận / Huyện...</option>
+                                    {{#each districts}}
+                                    <option value="{{this.district}}">{{this.district}}</option>
+                                    {{/each}}
+                                </select>
+                                {{!-- <input type="text" class="form-control form-control-sm focus"
+                                    id="supplier-district" name="district"></input> --}}
+                            </div>
+                            <div class="col-md-3">
+                                <label for="supplier-cityprovince">Tỉnh / Thành phố</label>
+                                <select class="form-control form-control-sm mr-sm-2" id="supplier-cityprovince"
+                                    name="cityProvince">
+                                    <option>Chọn Tỉnh / Thành phố...</option>
+                                    {{#each cities}}
+                                    <option value="{{this.cityprovince}}">{{this.cityprovince}}</option>
+                                    {{/each}}
+                                </select>
+                                {{!-- <input type="text" class="form-control form-control-sm focus"
+                                    id="supplier-cityprovince" name="cityProvince"></input> --}}
+                            </div>
+                            <div class="col-md-6">
+                                {{!-- <img src="..." alt="..." class="img-thumbnail">
+                                <label for="supplier-img" class="btn btn-secondary">Chọn hình ảnh</label>
+                                <input style="visibility:hidden;" type="file" class="form-control-file"
+                                    placeholder="Chọn hình ảnh" id="supplier-img"> --}}
+                                <label for="supplier-description">Mô tả</label>
+                                <textarea class="form-control form-control-sm" id="supplier-description" rows="3"
+                                    name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-edit-supplier" type="submit" class="btn btn-primary">Lưu lại</button>
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="delete-supplier" class="mt-3 mb-3 form-inline" method="POST"></form>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-supplier" type="submit" class="btn btn-danger">Có</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        var supplierId, supplier;
+        var editSupplier = document.forms['edit-supplier'];
+        var deleteSupplier = document.forms['delete-supplier'];
+        var btnEditSupplier = document.getElementById('btn-edit-supplier');
+        var btnDeleteSupplier = document.getElementById('btn-delete-supplier');
+
+        $('#modal-edit').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            supplierId = button.data('id');
+            supplierName = button.data('supplier-name');
+            supplierPhone = button.data('supplier-phone');
+            supplierAddress = button.data('supplier-address');
+            supplierDistrict = button.data('supplier-district');
+            supplierCityProvince = button.data('supplier-cityprovince');
+            supplierDescription = button.data('supplier-description');
+            var modal = $(this);
+            modal.find('.modal-body #supplier-name').val(supplierName);
+            modal.find('.modal-body #supplier-phone-number').val(supplierPhone);
+            modal.find('.modal-body #supplier-address').val(supplierAddress);
+            modal.find('.modal-body #supplier-district').val(supplierDistrict);
+            modal.find('.modal-body #supplier-cityprovince').val(supplierCityProvince);
+            modal.find('.modal-body #supplier-description').val(supplierDescription);
+        })
+
+        btnEditSupplier.onclick = function () {
+            editSupplier.action = '/nha-cung-cap/' + supplierId + '?_method=PUT';
+            editSupplier.submit();
+        }
+
+        $('#modal-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            supplierId = button.data('id');
+            supplierName = button.data('supplier-name');
+            var modal = $(this);
+            modal.find('.modal-body').text('Bạn có chắc muốn xóa nhà cung cấp ' + supplierName + ' ra khỏi danh sách không?');
+        })
+
+        btnDeleteSupplier.onclick = function () {
+            deleteSupplier.action = '/nha-cung-cap/' + supplierId + '?_method=DELETE';
+            deleteSupplier.submit();
+        }
+
+        $(document).ready(function () {
+            $('#product-table').DataTable();
+        });
+    })
+</script>

@@ -7,7 +7,13 @@ router.post('/', tinhthanhphoController.postTinhThanhPho);
 
 router.put('/:id', tinhthanhphoController.updateTinhThanhPho);
 
-router.get('/:id/edit', tinhthanhphoController.getId);
+router.patch('/:id/restore', tinhthanhphoController.restoreTinhThanhPho);
+
+router.delete('/:id/storage', tinhthanhphoController.deleteTinhThanhPho);
+
+router.delete('/:id/destroy', tinhthanhphoController.destroyTinhThanhPho);
+
+router.get('/kho-luu-tru', tinhthanhphoController.storedTinhThanhPho);
 
 router.get('/', tinhthanhphoController.getTinhThanhPho);
 

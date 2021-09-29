@@ -6,27 +6,13 @@ const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoo
 class TinhThanhPhoController {
     // [GET] /thuoc-tinh-chung
     getTinhThanhPho(req, res, next) {
-        Promise.all([CityProvince.find({}), CityProvince.findById(req.params.id)])
-            .then(([cities, city]) => 
+        Promise.all([CityProvince.find({}), CityProvince.countDocumentsDeleted()])
+            .then(([cities, deletedCount]) =>
                 res.render('tinh-thanh-pho', {
                     cities: multipleMongooseToObject(cities),
-                    city: mongooseToOject(city)
+                    deletedCount
                 })
             )
-            .catch(next);
-    }
-
-    getId(req,res, next) {
-        CityProvince.findById(req.params.id)
-            .then(city => 
-                res.render('edit-tinh-thanh-pho', mongooseToOject(city))
-            )
-            .catch(next);
-    }
-
-    updateTinhThanhPho(req, res, next) {
-        CityProvince.updateOne({ _id: req.params.id }, req.body)
-            .then(() => res.redirect('/tinh-thanh-pho'))
             .catch(next);
     }
 
@@ -40,14 +26,41 @@ class TinhThanhPhoController {
             })
     }
 
-    // edit(req, res, next) {
-    //     CityProvince.findById(req.params.id)
-    //         .then(city => res.render('/tinh-thanh-pho', {
-    //             city: mongooseToOject(city)
-    //         }))
-    //         .catch(next);
-    //         console.log(req.params.id);
-    // }
+    updateTinhThanhPho(req, res, next) {
+        CityProvince.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.redirect('/tinh-thanh-pho'))
+            .catch(next);
+    }
+
+
+
+    deleteTinhThanhPho(req, res, next) {
+        CityProvince.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    destroyTinhThanhPho(req, res, next) {
+        CityProvince.deleteOne({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+        }
+
+    storedTinhThanhPho(req, res, next) {
+        CityProvince.findDeleted({})
+            .then((cities) =>
+                res.render('stores/luu-tru-tinh-thanh-pho', {
+                    cities: multipleMongooseToObject(cities)
+                })
+            )
+            .catch(next);
+    }
+
+    restoreTinhThanhPho(req, res, next) {
+        CityProvince.restore({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
 }
 
 module.exports = new TinhThanhPhoController();
