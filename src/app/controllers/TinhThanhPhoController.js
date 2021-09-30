@@ -1,5 +1,4 @@
 const CityProvince = require('../models/TinhThanhPhoModel');
-const District = require('../models/QuanHuyenModel');
 const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoose');
 
 

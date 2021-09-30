@@ -1,7 +1,157 @@
-<form class="mt-3 mb-3 mr-4 ml-4 form-inline">
-    <label for="product-type">Loại sản phẩm</label>
-    <div class="form-group mr-3">
-        <input name="product-type" type="text" class="form-control" id="product-type" aria-describedby="emailHelp">
+<div class="container-fluid mt-3">
+    <div>
+        <h2>Danh sách Loại sản phẩm</h2>
+        <div class="d-flex justify-content-between">
+            <a href="loai-san-pham/kho-luu-tru" type="button" class="btn btn-primary btn-sm"><i class="fas fa-archive"></i> Lưu trữ <span class="badge badge-light">{{deletedCount}}</span></a>
+            <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"><i
+                    class="fas fa-plus"></i>
+                Thêm mới</a>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Lưu</button>
-</form>
+    <div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-type" class="mt-3 mb-3" method="POST">
+                        <label for="add-type">Loại sản phẩm</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-sm focus" id="add-type" name="typeName"
+                                value="{{this.typeName}}">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-add-type" type="submit" class="btn btn-primary btn-sm">Lưu lại</button>
+                    <button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <table class="table table-hover table-sm" id="type-table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Loại sản phẩm</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each types}}
+                <tr class="text-center">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.typeName}}</td>
+                    <td class="text-center">
+                        <a type="button" class="mr-4" data-toggle="modal" data-id="{{this._id}}"
+                            data-type="{{this.typeName}}" data-target="#modal-edit">Sửa</a>
+                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}"
+                            data-id="{{this._id}}" data-type="{{this.typeName}}"
+                            data-target="#modal-delete">
+                            Lưu trữ
+                        </a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <label for="edit-type">Loại sản phẩm</label>
+                <form name="edit-type" class="mb-3" method="POST">
+                    <input type="text" class="form-control form-control-sm focus" id="edit-type" name="typeName">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-edit-type" type="submit" class="btn btn-info btn-sm">Lưu lại</button>
+                <button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="delete-type" method="POST"></form>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Lưu trữ</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-type" type="submit" class="btn btn-danger btn-sm">Có</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Không</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        var typeId, type;
+        var addType = document.forms['add-type'];
+        var editType = document.forms['edit-type'];
+        var deleteType = document.forms['delete-type'];
+        var btnAddType = document.getElementById('btn-add-type');
+        var btnEditType = document.getElementById('btn-edit-type');
+        var btnDeleteType = document.getElementById('btn-delete-type');
+
+        btnAddType.onclick = function () {
+            addType.submit();
+        }
+
+        $('#modal-edit').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            typeId = button.data('id');
+            type = button.data('type');
+            var modal = $(this);
+            modal.find('.modal-body input').val(type);
+        })
+
+        btnEditType.onclick = function () {
+            editType.action = '/loai-san-pham/' + typeId + '?_method=PUT';
+            editType.submit();
+        }
+
+        $('#modal-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            typeId = button.data('id');
+            type = button.data('type');
+            var modal = $(this);
+            modal.find('.modal-body').text('Bạn có chắc muốn đưa ' + type + ' vào kho lưu trữ không?');
+        })
+
+        btnDeleteType.onclick = function () {
+            deleteType.action = '/loai-san-pham/' + typeId + '/storage?_method=DELETE';
+            deleteType.submit();
+        }
+
+        $(document).ready(function () {
+            $('#type-table').DataTable();
+        });
+    })
+</script>

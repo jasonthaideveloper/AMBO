@@ -14,10 +14,14 @@ const route = require('./routes/routes');
 db.connect();
 
 // Template engine
-app.engine('hbs', handlebars({ 
+app.engine('hbs', handlebars({
     extname: '.hbs',
     helpers: {
         sum: (a, b) => a + b,
+        sliceString: (string, num) => {
+            let strUpper = string;
+            return strUpper.length > num ? strUpper.slice(0, num) + '...' : strUpper;
+        }
     }
 }));
 app.set('view engine', 'hbs');

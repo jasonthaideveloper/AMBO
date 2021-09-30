@@ -1,28 +1,26 @@
 <div class="container-fluid mt-3">
     <div>
-        <a href="/quan-huyen" type="button"><i class="fas fa-arrow-left"></i> Quay lại</a>
-        <h2 class="mt-3">Quận / Huyện đã xóa</h2>
+        <a href="/kich-thuoc" type="button"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        <h2 class="mt-3">Kích thước đã xóa</h2>
     </div>
     <div class="mt-3">
-        <table class="table table-hover table-sm" id="district-table">
+        <table class="table table-hover table-sm" id="size-table">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
-                    <th scope="col">Quận / Huyện</th>
-                    <th scope="col">Tỉnh / Thành phố</th>
+                    <th scope="col">Kích thước</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each districts}}
+                {{#each sizes}}
                 <tr class="text-center">
                     <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.district}}</td>
-                    <td>{{this.cities}}</td>
+                    <td>{{this.sizeName}}</td>
                     <td class="text-center">
-                        <a type="button" class="mr-4 btn-restore" data-toggle="modal" data-id="{{this._id}}">Khôi phục</a>
-                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}"
-                            data-id="{{this._id}}" data-district="{{this.district}}" data-target="#modal-delete">
+                        <a type="button" class="mr-4 btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}" data-size="{{this.sizeName}}"
+                            data-target="#modal-delete">
                             Xóa vĩnh viễn
                         </a>
                     </td>
@@ -33,8 +31,8 @@
     </div>
 </div>
 
-<form name="delete-city" class="mt-3 mb-3 form-inline" method="POST"></form>
-<form name="restore-city" class="mt-3 mb-3 form-inline" method="POST"></form>
+<form name="delete-size" method="POST"></form>
+<form name="restore-size" method="POST"></form>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -49,7 +47,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-cityprovince" type="submit" class="btn btn-danger btn-sm">Có</button>
+                <button id="btn-delete-size" type="submit" class="btn btn-danger btn-sm">Có</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Không</button>
             </div>
 
@@ -60,33 +58,33 @@
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
 
-        var districtId, district;
-        var deleteDistrict = document.forms['delete-city'];
-        var restoreDistrict = document.forms['restore-city'];
-        var btnDeleteDistrict = document.getElementById('btn-delete-cityprovince');
-        var btnRestoreDistrict = $('.btn-restore');
+        var sizeId, size;
+        var deleteSize = document.forms['delete-size'];
+        var restoreSize = document.forms['restore-size'];
+        var btnDeleteSize = document.getElementById('btn-delete-size');
+        var btnRestoreSize = $('.btn-restore');
 
-        btnRestoreDistrict.click(function() {
-            districtId = $(this).data('id');
-            restoreDistrict.action = '/quan-huyen/' + districtId + '/restore?_method=PATCH';
-            restoreDistrict.submit();
+        btnRestoreSize.click(function() {
+            sizeId = $(this).data('id');
+            restoreSize.action = '/kich-thuoc/' + sizeId + '/restore?_method=PATCH';
+            restoreSize.submit();
         })
 
         $('#modal-delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            districtId = button.data('id');
-            district = button.data('district');
+            sizeId = button.data('id');
+            size = button.data('size');
             var modal = $(this);
-            modal.find('.modal-body').text('Bạn có chắc muốn xóa vĩnh viễn ' + district + ' không?');
+            modal.find('.modal-body').text('Bạn có chắc muốn xóa vĩnh viễn ' + size + ' không?');
         })
 
-        btnDeleteDistrict.onclick = function () {
-            deleteDistrict.action = '/quan-huyen/' + districtId + '/destroy?_method=DELETE';
-            deleteDistrict.submit();
+        btnDeleteSize.onclick = function () {
+            deleteSize.action = '/kich-thuoc/' + sizeId + '/destroy?_method=DELETE';
+            deleteSize.submit();
         }
 
         $(document).ready(function () {
-            $('#district-table').DataTable();
+            $('#size-table').DataTable();
         });
     })
 </script>

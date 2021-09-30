@@ -1,40 +1,43 @@
 <div class="container-fluid mt-3">
     <div>
-        <a href="/quan-huyen" type="button"><i class="fas fa-arrow-left"></i> Quay lại</a>
-        <h2 class="mt-3">Quận / Huyện đã xóa</h2>
+        <a href="/loai-san-pham" type="button"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        <h2 class="mt-3">Loại sản phẩm đã xóa</h2>
     </div>
     <div class="mt-3">
-        <table class="table table-hover table-sm" id="district-table">
+        <table class="table table-hover table-sm" id="type-table">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
-                    <th scope="col">Quận / Huyện</th>
-                    <th scope="col">Tỉnh / Thành phố</th>
+                    <th scope="col">Loại sản phẩm</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each districts}}
+                {{#each types}}
                 <tr class="text-center">
                     <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.district}}</td>
-                    <td>{{this.cities}}</td>
+                    <td>{{this.typeName}}</td>
                     <td class="text-center">
-                        <a type="button" class="mr-4 btn-restore" data-toggle="modal" data-id="{{this._id}}">Khôi phục</a>
-                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}"
-                            data-id="{{this._id}}" data-district="{{this.district}}" data-target="#modal-delete">
+                        <a type="button" class="mr-4 btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}" data-cityprovince="{{this.cityprovince}}"
+                            data-target="#modal-delete">
                             Xóa vĩnh viễn
                         </a>
                     </td>
                 </tr>
+                {{!-- {{else}}
+                <tr>
+                    <td colspan="3" class="text-center">Kho lưu trữ trống. <a href="/tinh-thanh-pho" type="button">Quay
+                            lại</a></td>
+                </tr> --}}
                 {{/each}}
             </tbody>
         </table>
     </div>
 </div>
 
-<form name="delete-city" class="mt-3 mb-3 form-inline" method="POST"></form>
-<form name="restore-city" class="mt-3 mb-3 form-inline" method="POST"></form>
+<form name="delete-type" method="POST"></form>
+<form name="restore-type" method="POST"></form>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -49,7 +52,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-cityprovince" type="submit" class="btn btn-danger btn-sm">Có</button>
+                <button id="btn-delete-type" type="submit" class="btn btn-danger btn-sm">Có</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Không</button>
             </div>
 
@@ -60,33 +63,33 @@
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
 
-        var districtId, district;
-        var deleteDistrict = document.forms['delete-city'];
-        var restoreDistrict = document.forms['restore-city'];
-        var btnDeleteDistrict = document.getElementById('btn-delete-cityprovince');
-        var btnRestoreDistrict = $('.btn-restore');
+        var cityprovinceId, cityprovince;
+        var deleteType = document.forms['delete-type'];
+        var restoreType = document.forms['restore-type'];
+        var btnDeleteType = document.getElementById('btn-delete-type');
+        var btnRestoreType = $('.btn-restore');
 
-        btnRestoreDistrict.click(function() {
-            districtId = $(this).data('id');
-            restoreDistrict.action = '/quan-huyen/' + districtId + '/restore?_method=PATCH';
-            restoreDistrict.submit();
+        btnRestoreType.click(function() {
+            typeId = $(this).data('id');
+            restoreType.action = '/loai-san-pham/' + typeId + '/restore?_method=PATCH';
+            restoreType.submit();
         })
 
         $('#modal-delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            districtId = button.data('id');
-            district = button.data('district');
+            typeId = button.data('id');
+            type = button.data('type');
             var modal = $(this);
-            modal.find('.modal-body').text('Bạn có chắc muốn xóa vĩnh viễn ' + district + ' không?');
+            modal.find('.modal-body').text('Bạn có chắc muốn xóa vĩnh viễn ' + type + ' không?');
         })
 
-        btnDeleteDistrict.onclick = function () {
-            deleteDistrict.action = '/quan-huyen/' + districtId + '/destroy?_method=DELETE';
-            deleteDistrict.submit();
+        btnDeleteType.onclick = function () {
+            deleteType.action = '/loai-san-pham/' + typeId + '/destroy?_method=DELETE';
+            deleteType.submit();
         }
 
         $(document).ready(function () {
-            $('#district-table').DataTable();
+            $('#type-table').DataTable();
         });
     })
 </script>

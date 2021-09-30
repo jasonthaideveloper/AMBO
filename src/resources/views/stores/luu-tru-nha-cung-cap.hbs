@@ -11,8 +11,8 @@
                     <th scope="col">Nhà cung cấp</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
-                    <th scope="col">Quận / Huyện</th>
-                    <th scope="col">Tỉnh / Thành phố</th>
+                    <th scope="col">Quận/Huyện</th>
+                    <th scope="col">Tỉnh/Thành phố</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
                     <td>{{this.district}}</td>
                     <td>{{this.cityProvince}}</td>
                     <td class="text-center">
-                        <a type="button" class="btn-restore" data-toggle="modal" data-id="{{this._id}}">Khôi phục</a>
+                        <a type="button" class="mr-3 btn-restore" data-toggle="modal" data-id="{{this._id}}">Khôi phục</a>
                         <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}"
                             data-supplier="{{this.supplierName}}" data-target="#modal-delete">
                             Xóa vĩnh viễn
