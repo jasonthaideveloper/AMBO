@@ -1,101 +1,24 @@
 <div class="container-fluid mt-3">
     <div>
-        <h2>Danh sách Sản phẩm</h2>
-        <div class="d-flex justify-content-between">
-            <a href="san-pham/kho-luu-tru" type="button" class="btn btn-primary btn-sm"><i class="fas fa-archive"></i>
-                Lưu trữ <span class="badge badge-light">{{deletedCount}}</span></a>
-            <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"><i
-                    class="fas fa-plus"></i>
-                Thêm mới</a>
+        <h2 class="text-primary">Danh sách Sản phẩm</h2>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="san-pham/kho-luu-tru" type="button" class="btn btn-outline-danger"><i class="fas fa-archive mr-2"></i>Kho lưu trữ<span class="badge badge-info ml-3">{{deletedCount}}</span></a>
+            <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i class="fas fa-plus mr-2"></i>Thêm mới</a>
         </div>
     </div>
-    <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-light">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
-                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="add-product" class="mb-3" method="POST">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="product-name">Tên sản phẩm</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="product-name"
-                                        name="productName">
-                                </div>
-                                <div class="col-md-2">
-                                    <label for="product-type">Loại sản phẩm</label>
-                                    <select class="form-control form-control-sm mr-sm-2" id="product-type"
-                                        name="productType">
-                                        {{#each types}}
-                                        <option value="{{this.typeName}}">{{this.typeName}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="product-price">Giá</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="product-price"
-                                        name="productPrice">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="product-property">Thuộc tính</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="product-property"
-                                        name="property">
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-6">
-                                    <label for="product-unit">Đơn vị tính</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="product-unit"
-                                        name="unit">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="product-supplier">Nhà cung cấp</label>
-                                    <select class="form-control form-control-sm mr-sm-2" id="product-supplier"
-                                        name="supplier">
-                                        <option selected>Chọn nhà cung cấp...</option>
-                                        {{#each suppliers}}
-                                        <option value="{{this.supplierName}}">{{this.supplierName}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                                {{!-- <div class="col-md-4"> --}}
-                                    {{!-- <img src="..." alt="..." class="img-thumbnail">
-                                    <label for="supplier-img" class="btn btn-secondary">Chọn hình ảnh</label>
-                                    <input style="visibility:hidden;" type="file" class="form-control-file"
-                                        placeholder="Chọn hình ảnh" id="supplier-img"> --}}
-
-                                    {{!--
-                                </div> --}}
-                            </div>
-                            <label for="product-description">Mô tả</label>
-                            <textarea class="form-control form-control-sm" id="product-description" rows="3"
-                                name="description"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-add" type="button" class="btn btn-primary btn-sm">Lưu lại</button>
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mt-3">
-        <table class="table table-hover table-sm mt-4" id="customer-table">
+    <div class="mt-4">
+        <table class="table table-hover table-sm" id="product-table">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
+                    <th scope="col">Mã sản phẩm</th>
                     <th scope="col">Tên sản phẩm</th>
                     <th scope="col">Loại sản phẩm</th>
+                    <th scope="col">Giá trị</th>
                     <th scope="col">Thuộc tính</th>
                     <th scope="col">Đơn vị</th>
-                    <th scope="col">Giá</th>
+                    <th scope="col">Giá nhập</th>
+                    <th scope="col">Giá bán</th>
                     <th scope="col">Nhà cung cấp</th>
                     <th scope="col">Hành động</th>
                 </tr>
@@ -104,20 +27,25 @@
                 {{#each products}}
                 <tr class="text-center">
                     <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.productId}}</td>
                     <td><a href="/chi-tiet">{{this.productName}}</a></td>
                     <td>{{this.productType}}</td>
-                    <td>{{this.property}}</td>
+                    <td>{{this.value}}</td>
+                    <td>{{this.propertyType}}</td>
                     <td>{{this.unit}}</td>
-                    <td>{{this.productPrice}}</td>
+                    <td>{{this.productPriceIn}}</td>
+                    <td>{{this.productPriceOut}}</td>
                     <td>{{this.supplier}}</td>
                     <td class="text-center">
-                        <a type="button" class="mr-3" data-toggle="modal" data-id="{{this._id}}"
+                        <a type="button" class="btn btn-outline-info btn-sm mr-2" data-toggle="modal"
+                            data-id="{{this._id}}" data-product-id="{{this.productId}}"
                             data-product-name="{{this.productName}}" data-product-type="{{this.productType}}"
-                            data-product-property="{{this.property}}" data-product-unit="{{this.unit}}"
-                            data-product-price="{{this.productPrice}}" data-product-supplier="{{this.supplier}}"
-                            data-product-description="{{this.description}}" data-target="#modal-edit">Sửa</a>
-                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}"
-                            data-product-name="{{this.productName}}" data-target="#modal-delete">
+                            data-product-value="{{this.value}}" data-product-property-type="{{this.propertyType}}"
+                            data-product-unit="{{this.unit}}" data-product-price-in="{{this.productPriceIn}}"
+                            data-product-price-out="{{this.productPriceOut}}" data-product-supplier="{{this.supplier}}"
+                            data-product-description="{{this.description}}" data-target="#modal-edit">Chỉnh sửa</a>
+                        <a type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                            data-id="{{this._id}}" data-product-name="{{this.productName}}" data-target="#modal-delete">
                             Lưu trữ
                         </a>
                     </td>
@@ -125,6 +53,110 @@
                 {{/each}}
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-product" class="mb-3" method="POST">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="product-id">Mã sản phẩm</label>
+                                <input type="text" class="form-control form-control-sm focus" id="product-id"
+                                    name="productId">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-name">Tên sản phẩm</label>
+                                <input type="text" class="form-control form-control-sm focus" id="product-name"
+                                    name="productName">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-type">Loại sản phẩm</label>
+                                <select class="form-control form-control-sm mr-sm-2" id="product-type"
+                                    name="productType">
+                                    {{#each types}}
+                                    <option value="{{this.typeName}}">{{this.typeName}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="product-value">Giá trị</label>
+                                <input type="text" class="form-control form-control-sm focus" id="product-value"
+                                    name="value">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-property">Thuộc tính</label>
+                                <select class="form-control form-control-sm" id="product-property"
+                                    name="propertyType">
+                                    {{#each properties}}
+                                    <option value="{{this.propertyName}}">{{this.propertyName}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-unit">Đơn vị tính</label>
+                                <select class="form-control form-control-sm" id="product-unit" name="unit">
+                                    {{#each units}}
+                                    <option value="{{this.unitName}}">{{this.unitName}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="product-price-in">Giá nhập</label>
+                                <input type="text" class="form-control form-control-sm focus text-right"
+                                    id="product-price-in" name="productPriceIn">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-price-out">Giá bán</label>
+                                <input type="text" class="form-control form-control-sm focus text-right"
+                                    id="product-price-out" name="productPriceOut">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-supplier">Nhà cung cấp</label>
+                                <select class="form-control form-control-sm mr-sm-2" id="product-supplier"
+                                    name="supplier">
+                                    <option selected>Chọn nhà cung cấp...</option>
+                                    {{#each suppliers}}
+                                    <option value="{{this.supplierName}}">{{this.supplierName}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        {{!-- <div class="row mt-3"> --}}
+                            {{!-- <div class="col-md-4"> --}}
+                                {{!-- <img src="..." alt="..." class="img-thumbnail">
+                                <label for="supplier-img" class="btn btn-secondary">Chọn hình ảnh</label>
+                                <input style="visibility:hidden;" type="file" class="form-control-file"
+                                    placeholder="Chọn hình ảnh" id="supplier-img"> --}}
+
+                                {{!--
+                            </div> --}}
+                        {{!-- </div> --}}
+                        <label for="product-description">Mô tả</label>
+                        <textarea class="form-control form-control-sm" id="product-description" rows="3"
+                            name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add" type="button" class="btn btn-primary">Lưu lại</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -141,8 +173,8 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-product" type="submit" class="btn btn-danger btn-sm">Có</button>
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Không</button>
+                <button id="btn-delete-product" type="submit" class="btn btn-danger">Có</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
             </div>
         </div>
     </div>
@@ -163,12 +195,17 @@
                 <form id="edit-product" class="mb-3" method="POST">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="product-id">Mã sản phẩm</label>
+                                <input disabled type="text" class="form-control form-control-sm focus" id="product-id"
+                                    name="productId">
+                            </div>
+                            <div class="col-md-4">
                                 <label for="product-name">Tên sản phẩm</label>
                                 <input type="text" class="form-control form-control-sm focus" id="product-name"
                                     name="productName">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <label for="product-type">Loại sản phẩm</label>
                                 <select class="form-control form-control-sm mr-sm-2" id="product-type"
                                     name="productType">
@@ -177,24 +214,43 @@
                                     {{/each}}
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <label for="product-price">Giá</label>
-                                <input type="text" class="form-control form-control-sm focus" id="product-price"
-                                    name="productPrice">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="product-value">Giá trị</label>
+                                <input type="text" class="form-control form-control-sm focus" id="product-value"
+                                    name="value">
                             </div>
                             <div class="col-md-4">
                                 <label for="product-property">Thuộc tính</label>
-                                <input type="text" class="form-control form-control-sm focus" id="product-property"
-                                    name="property">
+                                <select class="form-control form-control-sm" id="product-property"
+                                    name="propertyType">
+                                    {{#each properties}}
+                                    <option value="{{this.propertyName}}">{{this.propertyName}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product-unit">Đơn vị tính</label>
+                                <select class="form-control form-control-sm" id="product-unit" name="unit">
+                                    {{#each units}}
+                                    <option value="{{this.unitName}}">{{this.unitName}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6">
-                                <label for="product-unit">Đơn vị tính</label>
-                                <input type="text" class="form-control form-control-sm focus" id="product-unit"
-                                    name="unit">
+                            <div class="col-md-4">
+                                <label for="product-price-in">Giá nhập</label>
+                                <input type="text" class="form-control form-control-sm focus text-right"
+                                    id="product-price-in" name="productPriceIn">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label for="product-price-out">Giá bán</label>
+                                <input type="text" class="form-control form-control-sm focus text-right"
+                                    id="product-price-out" name="productPriceOut">
+                            </div>
+                            <div class="col-md-4">
                                 <label for="product-supplier">Nhà cung cấp</label>
                                 <select class="form-control form-control-sm mr-sm-2" id="product-supplier"
                                     name="supplier">
@@ -219,8 +275,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="btn-edit-product" type="submit" class="btn btn-info btn-sm">Lưu lại</button>
-                <button type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal">Đóng</button>
+                <button id="btn-edit-product" type="submit" class="btn btn-info">Lưu lại</button>
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -228,7 +284,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
-        var productId, product;
+        var productDataId, product, productId;
         var addProduct = document.forms['add-product'];
         var editProduct = document.forms['edit-product'];
         var deleteProduct = document.forms['delete-product'];
@@ -242,39 +298,45 @@
 
         $('#modal-edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            productId = button.data('id');
+            productDataId = button.data('id');
+            productId = button.data('product-id');
             productName = button.data('product-name');
-            productPrice = button.data('product-price');
+            productPriceIn = button.data('product-price-in');
+            productPriceOut = button.data('product-price-out');
             productType = button.data('product-type');
-            productProperty = button.data('customer-property');
+            productProperty = button.data('product-property-type');
+            productValue = button.data('product-value');
             productUnit = button.data('product-unit');
             productSupplier = button.data('product-supplier');
             productDescription = button.data('product-description');
             var modal = $(this);
-            modal.find('.modal-body #product-name').val(customerName);
-            modal.find('.modal-body #product-price').val(productPrice);
+            modal.find('.modal-body #product-id').val(productId);
+            modal.find('.modal-body #product-name').val(productName);
+            modal.find('.modal-body #product-price-in').val(productPriceIn);
+            modal.find('.modal-body #product-price-out').val(productPriceOut);
             modal.find('.modal-body #product-type').val(productType);
             modal.find('.modal-body #product-property').val(productProperty);
+            modal.find('.modal-body #product-value').val(productValue);
             modal.find('.modal-body #product-unit').val(productUnit);
             modal.find('.modal-body #product-supplier').val(productSupplier);
-            modal.find('.modal-body #product-description').val(customerDescription);
+            modal.find('.modal-body #product-description').val(productDescription);
         })
 
         btnEditProduct.onclick = function () {
-            editProduct.action = '/san-pham/' + productId + '?_method=PUT';
-            editCustomer.submit();
+            editProduct.action = '/san-pham/' + productDataId + '?_method=PUT';
+            editProduct.submit();
         }
 
         $('#modal-delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            productId = button.data('id');
+            productDataId = button.data('id');
             productName = button.data('product-name');
             var modal = $(this);
             modal.find('.modal-body').text('Bạn có chắc muốn đưa ' + productName + ' vào kho lưu trữ không?');
         })
 
         btnDeleteProduct.onclick = function () {
-            deleteProduct.action = '/san-pham/' + productId + '/storage?_method=DELETE';
+            deleteProduct.action = '/san-pham/' + productDataId + '/storage?_method=DELETE';
             deleteProduct.submit();
         }
 

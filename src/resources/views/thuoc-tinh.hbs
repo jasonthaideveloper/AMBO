@@ -1,34 +1,31 @@
 <div class="container-fluid mt-3">
     <div>
-        <h2 class="text-primary">Danh sách đơn vị tính</h2>
+        <h2 class="text-primary">Danh sách thuộc tính</h2>
         <div class="d-flex justify-content-between mt-4">
-            <a href="don-vi-tinh/kho-luu-tru" type="button" class="btn btn-outline-danger"><i
-                    class="fas fa-archive mr-2"></i>Kho lưu trữ<span class="badge badge-info ml-3">{{deletedCount}}</span></a>
+            <a href="thuoc-tinh/kho-luu-tru" type="button" class="btn btn-outline-danger"><i class="fas fa-archive mr-2"></i>Kho lưu trữ<span class="badge badge-info ml-3">{{deletedCount}}</span></a>
             <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i
-                    class="fas fa-plus mr-2"></i>
-                Thêm mới</a>
+                    class="fas fa-plus mr-2"></i>Thêm mới</a>
         </div>
     </div>
-
     <div class="mt-4">
-        <table class="table table-hover table-sm" id="unit-table">
+        <table class="table table-hover table-sm" id="property-table">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
-                    <th scope="col">Đơn vị tính</th>
+                    <th scope="col">Thuộc tính</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each units}}
+                {{#each properties}}
                 <tr class="text-center">
                     <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.unitName}}</td>
+                    <td>{{this.propertyName}}</td>
                     <td class="text-center">
                         <a type="button" class="btn btn-outline-info btn-sm mr-2" data-toggle="modal" data-id="{{this._id}}"
-                            data-unit="{{this.unitName}}" data-target="#modal-edit">Chỉnh sửa</a>
+                            data-property="{{this.propertyName}}" data-target="#modal-edit">Chỉnh sửa</a>
                         <a type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-id="{{this._id}}"
-                            data-unit="{{this.unitName}}" data-target="#modal-delete">
+                            data-id="{{this._id}}" data-property="{{this.propertyName}}" data-target="#modal-delete">
                             Lưu trữ
                         </a>
                     </td>
@@ -49,16 +46,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="add-unit" class="mt-3 mb-3" method="POST">
-                    <label for="add-init">Đơn vị tính</label>
+                <form id="add-property" class="mt-3 mb-3" method="POST">
+                    <label for="add-property">Thuộc tính</label>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-sm focus" id="add-unit" name="unitName"
-                            value="{{this.unitName}}">
+                        <input type="text" class="form-control form-control-sm focus" id="add-property"
+                            name="propertyName" value="{{this.propertyName}}">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="btn-add-unit" type="submit" class="btn btn-primary">Lưu lại</button>
+                <button id="btn-add-property" type="submit" class="btn btn-primary">Lưu lại</button>
                 <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
@@ -76,20 +73,21 @@
             </div>
 
             <div class="modal-body">
-                <label for="edit-unit">Đơn vị tính</label>
-                <form name="edit-unit" class="mb-3" method="POST">
-                    <input type="text" class="form-control form-control-sm focus" id="edit-unit" name="unitName">
+                <label for="edit-property">Thuộc tính</label>
+                <form name="edit-property" class="mb-3" method="POST">
+                    <input type="text" class="form-control form-control-sm focus" id="edit-property"
+                        name="propertyName">
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="btn-edit-unit" type="submit" class="btn btn-info">Lưu lại</button>
+                <button id="btn-edit-property" type="submit" class="btn btn-info">Lưu lại</button>
                 <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
-<form name="delete-unit" method="POST"></form>
+<form name="delete-property" method="POST"></form>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -104,7 +102,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-unit" type="submit" class="btn btn-danger">Có</button>
+                <button id="btn-delete-property" type="submit" class="btn btn-danger">Có</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
             </div>
         </div>
@@ -113,46 +111,46 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
-        var unitId, unit;
-        var addUnit = document.forms['add-unit'];
-        var editUnit = document.forms['edit-unit'];
-        var deleteUnit = document.forms['delete-unit'];
-        var btnAddUnit = document.getElementById('btn-add-unit');
-        var btnEditUnit = document.getElementById('btn-edit-unit');
-        var btnDeleteUnit = document.getElementById('btn-delete-unit');
+        var propertyId, property;
+        var addProperty = document.forms['add-property'];
+        var editProperty = document.forms['edit-property'];
+        var deleteProperty = document.forms['delete-property'];
+        var btnAddProperty = document.getElementById('btn-add-property');
+        var btnEditProperty = document.getElementById('btn-edit-property');
+        var btnDeleteProperty = document.getElementById('btn-delete-property');
 
-        btnAddUnit.onclick = function () {
-            addUnit.submit();
+        btnAddProperty.onclick = function () {
+            addProperty.submit();
         }
 
         $('#modal-edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            unitId = button.data('id');
-            unit = button.data('unit');
+            propertyId = button.data('id');
+            property = button.data('property');
             var modal = $(this);
-            modal.find('.modal-body input').val(unit);
+            modal.find('.modal-body input').val(property);
         })
 
-        btnEditUnit.onclick = function () {
-            editUnit.action = '/don-vi-tinh/' + unitId + '?_method=PUT';
-            editUnit.submit();
+        btnEditProperty.onclick = function () {
+            editProperty.action = '/thuoc-tinh/' + propertyId + '?_method=PUT';
+            editProperty.submit();
         }
 
         $('#modal-delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            unitId = button.data('id');
-            unit = button.data('unit');
+            propertyId = button.data('id');
+            property = button.data('property');
             var modal = $(this);
-            modal.find('.modal-body').text('Bạn có chắc muốn đưa ' + unit + ' vào kho lưu trữ không?');
+            modal.find('.modal-body').text('Bạn có chắc muốn đưa ' + property + ' vào kho lưu trữ không?');
         })
 
-        btnDeleteUnit.onclick = function () {
-            deleteUnit.action = '/don-vi-tinh/' + unitId + '/storage?_method=DELETE';
-            deleteUnit.submit();
+        btnDeleteProperty.onclick = function () {
+            deleteProperty.action = '/thuoc-tinh/' + propertyId + '/storage?_method=DELETE';
+            deleteProperty.submit();
         }
 
         $(document).ready(function () {
-            $('#unit-table').DataTable();
+            $('#property-table').DataTable();
         });
     })
 </script>

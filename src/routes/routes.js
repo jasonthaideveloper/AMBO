@@ -1,7 +1,7 @@
 const sanphamRouter = require('./sanpham-route');
 const loaisanphamRouter = require('./loaisanpham-route');
 const donvitinhRouter = require('./donvitinh-route');
-const khoiluongRouter = require('./khoiluong-route');
+const thuoctinhRouter = require('./thuoctinh-route');
 const thetichRouter = require('./thetich-route');
 const kichthuocRouter = require('./kichthuoc-route');
 const quanhuyenRouter = require('./quanhuyen-route');
@@ -18,7 +18,7 @@ function route(app) {
 
     app.use('/don-vi-tinh', donvitinhRouter);
 
-    app.use('/khoi-luong', khoiluongRouter);
+    app.use('/thuoc-tinh', thuoctinhRouter);
 
     app.use('/the-tich', thetichRouter);
 

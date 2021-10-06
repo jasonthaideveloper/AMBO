@@ -1,6 +1,7 @@
 @import '_variables';
 
-body {
+html,body {
+    height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
 }
@@ -11,16 +12,20 @@ h1 {
     color: $red-text;
 }
 
+.districts {
+    white-space: pre-line;
+}
+
 #overflowTest {
     min-width: auto;
-    min-height: 596px;
+    min-height: 1024px;
 }
 
 #menu {
     color: white;
     padding: 0;
     min-width: auto;
-    max-height: 600px;
+    max-height: 1024px;
     overflow-y: scroll;
     overflow-x: hidden;
     background: #000000;
@@ -70,7 +75,7 @@ h1 {
     min-width: auto;
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 630px;
+    max-height: 1024px;
 }
 
 #body::-webkit-scrollbar {

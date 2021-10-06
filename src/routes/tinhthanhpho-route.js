@@ -7,6 +7,10 @@ router.post('/', tinhthanhphoController.postTinhThanhPho);
 
 router.put('/:id', tinhthanhphoController.updateTinhThanhPho);
 
+router.put('/:id/district', tinhthanhphoController.updateQuanHuyenToThanhPho);
+
+// router.delete('/:id/district', tinhthanhphoController.destroyQuanHuyenToThanhPho);
+
 router.patch('/:id/restore', tinhthanhphoController.restoreTinhThanhPho);
 
 router.delete('/:id/storage', tinhthanhphoController.deleteTinhThanhPho);

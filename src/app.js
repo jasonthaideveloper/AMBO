@@ -21,7 +21,8 @@ app.engine('hbs', handlebars({
         sliceString: (string, num) => {
             let strUpper = string;
             return strUpper.length > num ? strUpper.slice(0, num) + '...' : strUpper;
-        }
+        },
+        select: (string) => string,
     }
 }));
 app.set('view engine', 'hbs');

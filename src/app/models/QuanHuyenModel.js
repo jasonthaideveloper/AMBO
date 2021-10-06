@@ -4,8 +4,7 @@ const mongooseDelete = require('mongoose-delete');
 
 
 const District = new Schema({
-    cities: { type: String },
-    district: { type: String },
+    district: { type: String }
 }, { timestamps: true });
 
 District.plugin(mongooseDelete, { deletedAt : true, overrideMethods: 'all' });

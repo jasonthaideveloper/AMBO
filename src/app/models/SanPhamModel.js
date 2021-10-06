@@ -3,11 +3,13 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require('mongoose-delete');
 
 const Product = new Schema({
-  productID: { type: String },
+  productId: { type: String },
   productName: { type: String },
-  productPrice: { type: String },
+  productPriceIn: { type: String },
+  productPriceOut: { type: String },
   productType: { type: String },
-  property: { type: String },
+  value: { type: String },
+  propertyType: { type: String },
   unit: { type: String },
   img: { type: String },
   supplier: { type: String },

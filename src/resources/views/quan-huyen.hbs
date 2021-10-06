@@ -2,8 +2,8 @@
     <div>
         <h2>Danh sách Quận / Huyện</h2>
         <div class="d-flex justify-content-between">
-            <a href="quan-huyen/kho-luu-tru" type="button" class="btn btn-primary btn-sm"><i
-                    class="fas fa-archive"></i> Lưu trữ <span class="badge badge-light">{{deletedCount}}</span></a>
+            <a href="quan-huyen/kho-luu-tru" type="button" class="btn btn-primary btn-sm"><i class="fas fa-archive"></i>
+                Lưu trữ <span class="badge badge-light">{{deletedCount}}</span></a>
             <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"><i
                     class="fas fa-plus"></i>
                 Thêm mới</a>
@@ -20,23 +20,9 @@
                 </div>
                 <div class="modal-body">
                     <form id="add-district" class="" method="POST">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="district" class="">Quận / Huyện</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-sm" id="district"
-                                        name="district">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label for="district" class="">Tỉnh / Thành phố</label>
-                                <select name="cities" id="inputState" class="form-control form-control-sm">
-                                    <option selected>Chọn thành phố...</option>
-                                    {{#each cities}}
-                                    <option value="{{this.cityprovince}}">{{this.cityprovince}}</option>
-                                    {{/each}}
-                                </select>
-                            </div>
+                        <label for="district" class="">Quận / Huyện</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-sm" id="district" name="district">
                         </div>
                     </form>
                 </div>
@@ -116,6 +102,7 @@
 </div>
 
 <form name="delete-district" class="mt-3 mb-3 form-inline" method="POST"></form>
+<form name="update-city" class="mt-3 mb-3 form-inline" method="POST"></form>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -147,6 +134,19 @@
         var btnAddDistrict = document.getElementById('btn-add-district');
         var btnEditDistrict = document.getElementById('btn-edit-district');
         var btnDeleteDistrict = document.getElementById('btn-delete-district');
+        var changeCity = document.querySelector('#supplier-add-cityprovince');
+
+        $('#supplier-add-cityprovince').change(function () {
+            var select = $(this);
+            districtId = select.find(':selected').attr('data-id');
+            console.log(districtId);
+        });
+
+
+
+        //changeCity.addEventListener('change', function (e) {
+        //console.log(districtId);
+        //})
 
         btnAddDistrict.onclick = function () {
             addDistrict.submit();

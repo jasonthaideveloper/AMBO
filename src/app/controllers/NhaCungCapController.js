@@ -1,16 +1,15 @@
 const Supplier = require('../models/NhaCungCapModel');
 const CityProvince = require('../models/TinhThanhPhoModel');
-const District = require('../models/QuanHuyenModel');
+const District = require('../models/TinhThanhPhoModel');
 const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoose');
 
 class NhaCungCapController {
     // [GET] /thuoc-tinh-chung
     getNhaCungCap(req, res, next) {
-        Promise.all([CityProvince.find({}), District.find({}), Supplier.find({}), Supplier.countDocumentsDeleted()])
-            .then(([cities, districts, suppliers, deletedCount]) =>
+        Promise.all([CityProvince.find({}), Supplier.find({}), Supplier.countDocumentsDeleted()])
+            .then(([cities, suppliers, deletedCount]) =>
                 res.render('nha-cung-cap', {
                     cities: multipleMongooseToObject(cities),
-                    districts: multipleMongooseToObject(districts),
                     suppliers: multipleMongooseToObject(suppliers),
                     deletedCount
                 })

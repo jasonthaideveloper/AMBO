@@ -1,17 +1,21 @@
 const Supplier = require('../models/NhaCungCapModel');
 const Type = require('../models/LoaiSanPhamModel');
 const Product = require('../models/SanPhamModel');
+const Property = require('../models/ThuocTinhModel');
+const Unit = require('../models/DonViTinhModel');
 const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoose');
 
 class SanPhamController {
     // [GET] /thuoc-tinh-chung
     getSanPham(req, res, next) {
-        Promise.all([Product.find({}), Supplier.find({}), Type.find({}), Product.countDocumentsDeleted()])
-            .then(([products, suppliers, types, deletedCount]) =>
+        Promise.all([Product.find({}), Supplier.find({}), Type.find({}), Property.find({}), Unit.find({}), Product.countDocumentsDeleted()])
+            .then(([products, suppliers, types, properties, units, deletedCount]) =>
                 res.render('san-pham', {
                     products: multipleMongooseToObject(products),
                     suppliers: multipleMongooseToObject(suppliers),
                     types: multipleMongooseToObject(types),
+                    properties: multipleMongooseToObject(properties),
+                    units: multipleMongooseToObject(units),
                     deletedCount
                 })
             )

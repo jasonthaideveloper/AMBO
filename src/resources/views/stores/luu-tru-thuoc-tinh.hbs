@@ -1,43 +1,38 @@
 <div class="container-fluid mt-3">
     <div>
-        <h5 class="text-primary"><a href="/loai-san-pham" type="button" class="text-decoration-none"><i class="fas fa-arrow-left mr-2"></i>Quay lại</a></h5>
-        <h2 class="mt-4 text-primary">Loại sản phẩm đã lưu trữ</h2>
+        <h5 class="text-primary"><a href="/thuoc-tinh" type="button" class="text-decoration-none"><i class="fas fa-arrow-left mr-2"></i>Quay lại</a></h5>
+        <h2 class="mt-4 text-primary">Thuộc tính đã lưu trữ</h2>
     </div>
     <div class="mt-4">
-        <table class="table table-hover table-sm" id="type-table">
+        <table class="table table-hover table-sm" id="property-table">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
-                    <th scope="col">Loại sản phẩm</th>
+                    <th scope="col">Thuộc tính</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each types}}
+                {{#each properties}}
                 <tr class="text-center">
                     <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.typeName}}</td>
+                    <td>{{this.propertyName}}</td>
                     <td class="text-center">
                         <a type="button" class="btn btn-outline-primary btn-sm mr-2 btn-restore" data-id="{{this._id}}">Khôi phục</a>
-                        <a type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-id="{{this._id}}" data-cityprovince="{{this.cityprovince}}"
+                        <a type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-id="{{this._id}}" data-property="{{this.propertyName}}"
                             data-target="#modal-delete">
                             Xóa vĩnh viễn
                         </a>
                     </td>
                 </tr>
-                {{!-- {{else}}
-                <tr>
-                    <td colspan="3" class="text-center">Kho lưu trữ trống. <a href="/tinh-thanh-pho" type="button">Quay
-                            lại</a></td>
-                </tr> --}}
                 {{/each}}
             </tbody>
         </table>
     </div>
 </div>
 
-<form name="delete-type" method="POST"></form>
-<form name="restore-type" method="POST"></form>
+<form name="delete-property" method="POST"></form>
+<form name="restore-property" method="POST"></form>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -52,7 +47,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-type" type="submit" class="btn btn-danger">Có</button>
+                <button id="btn-delete-property" type="submit" class="btn btn-danger">Có</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
             </div>
 
@@ -63,33 +58,33 @@
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
 
-        var cityprovinceId, cityprovince;
-        var deleteType = document.forms['delete-type'];
-        var restoreType = document.forms['restore-type'];
-        var btnDeleteType = document.getElementById('btn-delete-type');
-        var btnRestoreType = $('.btn-restore');
+        var propertyId, property;
+        var deleteProperty = document.forms['delete-property'];
+        var restoreProperty = document.forms['restore-property'];
+        var btnDeleteProperty = document.getElementById('btn-delete-property');
+        var btnRestoreProperty = $('.btn-restore');
 
-        btnRestoreType.click(function() {
-            typeId = $(this).data('id');
-            restoreType.action = '/loai-san-pham/' + typeId + '/restore?_method=PATCH';
-            restoreType.submit();
+        btnRestoreProperty.click(function() {
+            propertyId = $(this).data('id');
+            restoreProperty.action = '/thuoc-tinh/' + propertyId + '/restore?_method=PATCH';
+            restoreProperty.submit();
         })
 
         $('#modal-delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            typeId = button.data('id');
-            type = button.data('type');
+            propertyId = button.data('id');
+            property = button.data('property');
             var modal = $(this);
-            modal.find('.modal-body').text('Bạn có chắc muốn xóa vĩnh viễn ' + type + ' không?');
+            modal.find('.modal-body').text('Bạn có chắc muốn xóa vĩnh viễn ' + property + ' không?');
         })
 
-        btnDeleteType.onclick = function () {
-            deleteType.action = '/loai-san-pham/' + typeId + '/destroy?_method=DELETE';
-            deleteType.submit();
+        btnDeleteProperty.onclick = function () {
+            deleteProperty.action = '/thuoc-tinh/' + propertyId + '/destroy?_method=DELETE';
+            deleteProperty.submit();
         }
 
         $(document).ready(function () {
-            $('#type-table').DataTable();
+            $('#property-table').DataTable();
         });
     })
 </script>

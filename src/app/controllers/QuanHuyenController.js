@@ -24,6 +24,11 @@ class QuanHuyenController {
             .catch(error => {
 
             })
+        // district.save()
+        //     .then(() => res.redirect('/quan-huyen'))
+        //     .catch(error => {
+
+        //     })
     }
 
     updateQuanHuyen(req, res, next) {
@@ -42,7 +47,7 @@ class QuanHuyenController {
         District.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next);
-        }
+    }
 
     storedQuanHuyen(req, res, next) {
         District.findDeleted({})

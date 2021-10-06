@@ -1,9 +1,9 @@
 <div class="container-fluid mt-3">
     <div>
-        <a href="/don-vi-tinh" type="button"><i class="fas fa-arrow-left"></i> Quay lại</a>
-        <h2 class="mt-3">Đơn vị tính đã xóa</h2>
+        <h5 class="text-primary"><a href="/don-vi-tinh" type="button" class="text-decoration-none"><i class="fas fa-arrow-left mr-2"></i>Quay lại</a></h5>
+        <h2 class="mt-4 text-primary">Đơn vị tính đã lưu trữ</h2>
     </div>
-    <div class="mt-3">
+    <div class="mt-4">
         <table class="table table-hover table-sm" id="unit-table">
             <thead>
                 <tr class="text-center">
@@ -18,8 +18,8 @@
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.unitName}}</td>
                     <td class="text-center">
-                        <a type="button" class="mr-4 btn-restore" data-id="{{this._id}}">Khôi phục</a>
-                        <a type="button" class="text-danger" data-toggle="modal" data-id="{{this._id}}" data-unit="{{this.unitName}}"
+                        <a type="button" class="btn btn-outline-primary btn-sm mr-2 btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                        <a type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-id="{{this._id}}" data-unit="{{this.unitName}}"
                             data-target="#modal-delete">
                             Xóa vĩnh viễn
                         </a>
@@ -47,8 +47,8 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-unit" type="submit" class="btn btn-danger btn-sm">Có</button>
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Không</button>
+                <button id="btn-delete-unit" type="submit" class="btn btn-danger">Có</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
             </div>
 
         </div>

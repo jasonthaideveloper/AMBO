@@ -1,11 +1,175 @@
-<form class="mt-3 mb-3 mr-4 ml-4">
-    <div class="form-group">
-        <label for="pay-ments">Hình thức thanh toán</label>
-        <input type="text" class="form-control" id="pay-ments" aria-describedby="emailHelp">
+<div class="container-fluid mt-3">
+    <div>
+        <h2 class="text-primary">Danh sách hình thức thanh toán</h2>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="hinh-thuc-thanh-toan/kho-luu-tru" type="button" class="btn btn-outline-danger"><i
+                    class="fas fa-archive mr-2"></i>Kho lưu trữ<span class="badge badge-info ml-3">{{deletedCount}}</span></a>
+            <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i
+                    class="fas fa-plus mr-2"></i>Thêm mới</a>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="payments-description">Mô tả</label>
-        <textarea class="form-control" id="payments-description" rows="3"></textarea>
+
+    <div class="mt-4">
+        <table class="table table-hover table-sm" id="payments-table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Hình thức thanh toán</th>
+                    <th scope="col">Nội dung</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each payments}}
+                <tr class="text-center">
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.title}}</td>
+                    <td>{{this.content}}</td>
+                    <td class="text-center">
+                        <a type="button" class="btn btn-outline-info btn-sm mr-2" data-toggle="modal"
+                            data-id="{{this._id}}" data-content="{{this.content}}" data-title="{{this.title}}"
+                            data-target="#modal-edit">Chỉnh sửa</a>
+                        <a type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                            data-id="{{this._id}}" data-title="{{this.title}}" data-target="#modal-delete">
+                            Lưu trữ
+                        </a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </div>
-    <button type="submit" class="btn btn-primary">Lưu</button>
-</form>
+</div>
+
+<div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-payments" class="" method="POST">
+                    <label for="title" class="">Hình thức thanh toán</label>
+                    <div class="form-group">
+                        <input id="title" name="title" type="text" class="form-control form-control-sm"
+                            placeholder="Vd: Chuyển khoản hoặc thu hộ">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Nội dung</label>
+                        <textarea class="form-control" id="content" name="content"
+                            placeholder="Vd: Tên ngân hàng-Tên chủ thẻ-Số tài khoản..." rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add-payments" type="submit" class="btn btn-primary">Lưu lại</button>
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="edit-payments" class="" method="POST">
+                    <label for="title" class="">Hình thức thanh toán</label>
+                    <div class="form-group">
+                        <input id="title" name="title" type="text" class="form-control form-control-sm"
+                            placeholder="Vd: Chuyển khoản hoặc thu hộ">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Nội dung</label>
+                        <textarea class="form-control" id="content" name="content"
+                            placeholder="Vd: Tên ngân hàng-Tên chủ thẻ-Số tài khoản..." rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-edit-payments" type="submit" class="btn btn-info">Lưu lại</button>
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="delete-payments" method="POST"></form>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Lưu trữ</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-payments" type="submit" class="btn btn-danger">Có</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        var paymentId, title, content;
+        var addPayments = document.forms['add-payments'];
+        var editPayments = document.forms['edit-payments'];
+        var deletePayments = document.forms['delete-payments'];
+        var btnAddPayments = document.getElementById('btn-add-payments');
+        var btnEditPayments = document.getElementById('btn-edit-payments');
+        var btnDeletePayments = document.getElementById('btn-delete-payments');
+
+        btnAddPayments.onclick = function () {
+            addPayments.submit();
+        }
+
+        $('#modal-edit').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            paymentId = button.data('id');
+            title = button.data('title');
+            content = button.data('content');
+            var modal = $(this);
+            modal.find('.modal-body input').val(title);
+            modal.find('.modal-body textarea').val(content);
+        })
+
+        btnEditPayments.onclick = function () {
+            editPayments.action = '/hinh-thuc-thanh-toan/' + paymentId + '?_method=PUT';
+            editPayments.submit();
+        }
+
+        $('#modal-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            paymentId = button.data('id');
+            title = button.data('title');
+            var modal = $(this);
+            modal.find('.modal-body').text('Bạn có chắc muốn đưa hình thức thanh toán ' + title + ' vào kho lưu trữ không?');
+        })
+
+        btnDeletePayments.onclick = function () {
+            deletePayments.action = '/hinh-thuc-thanh-toan/' + paymentId + '/storage?_method=DELETE';
+            deletePayments.submit();
+        }
+
+        $(document).ready(function () {
+            $('#payments-table').DataTable();
+        });
+    })
+</script>
