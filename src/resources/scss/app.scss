@@ -90,3 +90,56 @@ h1 {
 .hover:hover {
     background-color: #3498db;
 }
+
+.khung {
+    min-width: auto;
+    min-height: 1024px;
+}
+
+.san-pham-scroll {
+    min-width: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 400px;
+    padding-right: 1px;
+}
+
+.san-pham-scroll::-webkit-scrollbar {
+    width: 6px;
+    
+    // background-color: #F5F5F5;
+}
+
+.san-pham-scroll::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+    
+}
+
+// .upload-img::-webkit-file-upload-button {
+//     visibility: hidden;
+// }
+
+// .upload-img::before {
+//     content: 'Chọn hình ảnh';
+//     // display: inline-block;
+//     // background: linear-gradient(top, #f9f9f9, #e3e3e3);
+//     // border: 1px solid #999;
+//     // border-radius: 3px;
+//     // padding: 5px 8px;
+//     // outline: none;
+//     // white-space: nowrap;
+//     // // -webkit-user-select: none;
+//     // cursor: pointer;
+//     // text-shadow: 1px 1px #fff;
+//     // font-weight: 700;
+//     // font-size: 10pt;
+// }
+
+// .upload-img:hover::before {
+//     border-color: black;
+// }
+
+// .upload-img:active::before {
+//     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+//   }
+  

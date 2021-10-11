@@ -17,7 +17,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
-                    {{!-- <th scope="col">Quận/Huyện</th> --}}
+                    <th scope="col">Quận/Huyện</th>
                     <th scope="col">Tỉnh/Thành phố</th>
                     <th scope="col">Hành động</th>
                 </tr>
@@ -26,14 +26,19 @@
                 {{#each customers}}
                 <tr class="text-center">
                     <th scope="row">{{sum @index 1}}</th>
-                    <td><a href="/chi-tiet">{{this.customerName}}</a></td>
+                    <td><a href="" class="text-decoration-none" data-toggle="modal" data-id="{{this._id}}"
+                            data-customer-detail-name="{{this.customerName}}" data-detail-gender="{{this.gender}}"
+                            data-customer-detail-email="{{this.email}}" data-customer-detail-phone="{{this.phoneNumber}}"
+                            data-customer-detail-address="{{this.address}}" data-customer-detail-district="{{this.district}}"
+                            data-customer-detail-cityprovince="{{this.cityProvince}}"
+                            data-customer-detail-description="{{this.description}}" data-target="#modal-detail-customer">{{this.customerName}}</a></td>
                     <td>{{this.gender}}</td>
                     <td><a type="button" class="text-decoration-none text-info" data-toggle="tooltip"
                             data-placement="top" title="{{this.email}}">{{sliceString this.email 9}}</a></td>
                     <td>{{this.phoneNumber}}</td>
                     <td><a type="button" class="text-decoration-none text-info" data-toggle="tooltip"
                             data-placement="top" title="{{this.address}}">{{sliceString this.address 9}}</a></td>
-                    {{!-- <td>{{this.district}}</td> --}}
+                    <td>{{this.district}}</td>
                     <td>{{this.cityProvince}}</td>
                     <td class="text-center">
                         <a type="button" class="btn btn-outline-info btn-sm mr-2" data-toggle="modal" data-id="{{this._id}}"
@@ -107,14 +112,6 @@
                                     {{/each}}
                                 </select>
                             </div>
-                            {{!-- <div class="col-md-4"> --}}
-                                {{!-- <img src="..." alt="..." class="img-thumbnail">
-                                <label for="supplier-img" class="btn btn-secondary">Chọn hình ảnh</label>
-                                <input style="visibility:hidden;" type="file" class="form-control-file"
-                                    placeholder="Chọn hình ảnh" id="supplier-img"> --}}
-
-                                {{!--
-                            </div> --}}
                         </div>
                         <label for="customer-description">Mô tả</label>
                         <textarea class="form-control form-control-sm" id="customer-description" rows="3"
@@ -125,6 +122,36 @@
             <div class="modal-footer">
                 <button id="btn-add" type="button" class="btn btn-primary">Lưu lại</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-detail-customer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-light">Thông tin khách hàng</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <p id="customer-detail-id"></p>
+                    <p id="customer-detail-name"></p>
+                    <p id="customer-detail-gender"></p>
+                    <p id="customer-detail-email"></p>
+                    <p id="customer-detail-phone"></p>
+                    <p id="customer-detail-address"></p>
+                    {{!-- <p id="customer-detail-district"></p>
+                    <p id="customer-detail-cityprovince"></p> --}}
+                    <label for="">Mô tả:</label>
+                    <p class="text-justify" id="customer-detail-description"></p>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -205,14 +232,6 @@
                                     {{/each}}
                                 </select>
                             </div>
-                            {{!-- <div class="col-md-6"> --}}
-                                {{!-- <img src="..." alt="..." class="img-thumbnail">
-                                <label for="supplier-img" class="btn btn-secondary">Chọn hình ảnh</label>
-                                <input style="visibility:hidden;" type="file" class="form-control-file"
-                                    placeholder="Chọn hình ảnh" id="supplier-img"> --}}
-
-                                {{!--
-                            </div> --}}
                         </div>
                         <label for="customer-description">Mô tả</label>
                         <textarea class="form-control form-control-sm" id="customer-description" rows="3"
@@ -241,6 +260,29 @@
         btnAddCustomer.onclick = function () {
             addCustomer.submit();
         }
+
+        $('#modal-detail-customer').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            customerId = button.data('id');
+            customerDetailName = button.data('customer-detail-name');
+            customerDetailGender = button.data('detail-gender');
+            customerDetailEmail = button.data('customer-detail-email');
+            customerDetailPhone = button.data('customer-detail-phone');
+            customerDetailAddress = button.data('customer-detail-address');
+            customerDetailDistrict = button.data('customer-detail-district');
+            customerDetailCityProvince = button.data('customer-detail-cityprovince');
+            customerDetailDescription = button.data('customer-detail-description');
+            var modal = $(this);
+            modal.find('.modal-body #customer-detail-id').text('Mã: ' + customerId);
+            modal.find('.modal-body #customer-detail-name').text('Họ tên: ' + customerDetailName);
+            modal.find('.modal-body #customer-detail-gender').text('Giới tính: ' + customerDetailGender);
+            modal.find('.modal-body #customer-detail-email').text('Email: ' + customerDetailEmail);
+            modal.find('.modal-body #customer-detail-phone').text('Điện thoại: ' + customerDetailPhone);
+            modal.find('.modal-body #customer-detail-address').text('Địa chỉ: ' + customerDetailAddress + ', ' + customerDetailDistrict + ', ' + customerDetailCityProvince);
+            //modal.find('.modal-body #customer-detail-district').text('Quận: ' + customerDetailDistrict);
+            //modal.find('.modal-body #customer-detail-cityprovince').text('Thành phố: ' + customerDetailCityProvince);
+            modal.find('.modal-body #customer-detail-description').text(customerDetailDescription);
+        })
 
         $('#modal-edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);

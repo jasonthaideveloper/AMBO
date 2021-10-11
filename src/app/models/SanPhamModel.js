@@ -11,7 +11,7 @@ const Product = new Schema({
   value: { type: String },
   propertyType: { type: String },
   unit: { type: String },
-  img: { type: String },
+  img: { type: Buffer },
   supplier: { type: String },
   description: { type: String },
 }, { timestamps: true });

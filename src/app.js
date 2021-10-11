@@ -37,6 +37,9 @@ app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'resources/views'));
 console.log('Path', path.join(__dirname, '/resources/views'));
 
+// Set path img
+
+
 // Get static file from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 

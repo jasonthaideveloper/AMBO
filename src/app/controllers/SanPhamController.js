@@ -4,6 +4,7 @@ const Product = require('../models/SanPhamModel');
 const Property = require('../models/ThuocTinhModel');
 const Unit = require('../models/DonViTinhModel');
 const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoose');
+const { format } = require('morgan');
 
 class SanPhamController {
     // [GET] /thuoc-tinh-chung
@@ -25,11 +26,53 @@ class SanPhamController {
     postSanPham(req, res, next) {
         const product = new Product(req.body);
         product.save()
-            .then(() => res.redirect('/san-pham'))
+            .then(() => {
+                res.redirect('/san-pham')
+            })
             .catch(error => {
 
             })
     }
+
+    // postHinhAnhSanPham() {
+    //     const upload = multer({
+    //         dest: 'img/',
+    //         fileFilter: (req, file, callback) => {
+    //             if (!/\S+\.(jpg|bmp|gif|png)/gi.test(file.originalname)) {
+    //                 return callback(Error('Invalid image file name'), false)
+    //             }
+
+
+    //             const reqName = req.params.image_name
+    //             imagemodel.find({ name: reqName }).limit(1).exec((err, res) => {
+    //                 if (err) {
+    //                     console.log(err)
+    //                     return callback(err, false)
+    //                 }
+
+    //                 if (res.length === 0) callback(null, true)
+    //                 else callback(Error(`Image with name: "${reqName}" exists`), false)
+    //             })
+    //         }
+    //     }).single('image')
+
+    //     upload(req, res, (err) => {
+    //         if (err) {
+    //             res.status(400).json({ message: err.message })
+    //             return
+    //         }
+    
+    //         const reqName = req.params.image_name
+    //         const imagePath = path.join('images', req.file.filename)
+    
+    //         const model = new imagemodel({
+    //             name: reqName,
+    //             image_path: imagePath,
+    //             created_at: new Date()
+    //         })
+
+    // }
+
 
     updateSanPham(req, res, next) {
         Product.updateOne({ _id: req.params.id }, req.body)
@@ -47,7 +90,7 @@ class SanPhamController {
         Product.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next);
-        }
+    }
 
     storedSanPham(req, res, next) {
         Product.findDeleted({})

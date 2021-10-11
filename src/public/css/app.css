@@ -68,3 +68,20 @@ h1 {
 
 .hover:hover {
   background-color: #3498db; }
+
+.khung {
+  min-width: auto;
+  min-height: 1024px; }
+
+.san-pham-scroll {
+  min-width: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 400px;
+  padding-right: 1px; }
+
+.san-pham-scroll::-webkit-scrollbar {
+  width: 6px; }
+
+.san-pham-scroll::-webkit-scrollbar-thumb {
+  background-color: #3498db; }
