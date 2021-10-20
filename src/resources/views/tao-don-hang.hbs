@@ -1,0 +1,364 @@
+<div class="container-fluid mt-3">
+    <div>
+        <h5 class="text-primary">
+            <a href="/don-hang" type="button" class="text-decoration-none">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Quay lại
+            </a>
+        </h5>
+        <h2 class="mt-4 text-primary">Tạo đơn hàng</h2>
+    </div>
+    <ul class="list-group mt-4">
+        <li class="list-group-item">
+            <form id="add-bill" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="border-right khung-border">
+                            <div class="row mr-2">
+                                <div class="col-md-3">
+                                    <label for="bill-id">Mã HĐ</label>
+                                    <input type="text" class="form-control form-control-sm focus" id="bill-id"
+                                        name="billId">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="bill-name">Tên hóa đơn</label>
+                                    <input type="text" class="form-control form-control-sm focus" id="bill-name"
+                                        name="billName">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="customer-id">Mã KH</label>
+                                    <input type="text" class="form-control form-control-sm focus" id="customer-id"
+                                        name="customerId">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="customer-name">Tên khách hàng</label>
+                                    <select class="form-control form-control-sm" id="customer-name" name="customerName">
+                                        {{#each customers}}
+                                        <option>{{this.customerName}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mr-2 mt-2">
+                                <div class="col-md-4">
+                                    <label for="place-of-delivery">Địa chỉ giao hàng</label>
+                                    <input type="text" class="form-control form-control-sm focus" id="place-of-delivery"
+                                        name="placeOfDelivery">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="bill-payments">Hình thức thanh toán</label>
+                                    <select class="form-control form-control-sm" id="bill-payments" name="payments">
+                                        {{#each payments}}
+                                        <option>{{this.title}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="bill-transportation">Hình thức vận chuyển</label>
+                                    <select class="form-control form-control-sm" id="bill-transportation"
+                                        name="transportation">
+                                        {{#each transportations}}
+                                        <option>{{this.title}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mr-4 mt-2">
+                                <label for="bill-description">Mô tả</label>
+                                <textarea rows="2" type="text" class="form-control form-control-sm focus"
+                                    id="bill-description" name="description"></textarea>
+                            </div>
+
+                            <div class="mt-3 mr-4">
+                                <table class="table table-hover table-sm" id="bill-table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">#</th>
+                                            <th scope="col">Mã sản phẩm</th>
+                                            <th scope="col">Tên sản phẩm</th>
+                                            <th scope="col">Đơn giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each products}}
+                                        <tr class="text-center">
+                                            <th scope="row">{{sum @index 1}}</th>
+                                            <td><a href="/chi-tiet">{{this.productId}}</a></td>
+                                            <td aria-valuetext="Ten san pham 1">{{this.productName}}</td>
+                                            <td aria-valuetext="Ten san pham 1">{{this.productPriceOut}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            <li class="list-group-item khung">
+                                <label for="exampleFormControlInput1" class="mr-2">Sản phẩm:</label><span
+                                    id="count"></span>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="exampleFormControlInput1" class="mr-2">Tên sản phẩm</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="exampleFormControlInput1" class="mr-2">Số lượng</label>
+                                    </div>
+                                    {{!-- <div class="col-md-1"> --}}
+                                        {{!-- <label for="exampleFormControlInput1" class="mr-2 text-center">x</label>
+                                        --}}
+                                        {{!-- </div> --}}
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1" class="mr-2">Đơn giá</label>
+                                    </div>
+                                    {{!-- <div class="col-md-1"> --}}
+                                        {{!-- <label for="exampleFormControlInput1" class="mr-2 text-center">=</label>
+                                        --}}
+                                        {{!-- </div> --}}
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1" class="mr-2">Thành tiền</label>
+                                    </div>
+                                </div>
+                                <div class="row san-pham-scroll">
+                                    <div class="col-md-4">
+                                        <ul id="product-name" class="list-group">
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <ul id="product-quantity" class="list-group">
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <ul id="product-price" class="list-group">
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <ul id="product-into-money" class="list-group">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        {{!-- <div id="product-total-money" class="list-group mt-3 d-flex">
+                            <label for="product-total" class="text-right mr-1">Tạm tính</label>
+                            <input type="text" class="form-control focus col-4 ml-auto bg-white text-right"
+                                id="product-total" name="supplierName" readonly>
+                        </div> --}}
+                        <div id="product-total-money" class="list-group mt-3 d-flex">
+                            <label for="product-total" class="text-right mr-1">Tổng tiền</label>
+                            <input type="text" class="form-control focus col-4 ml-auto bg-white text-right"
+                                id="product-total" name="supplierName" readonly>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </li>
+    </ul>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-light" id="exampleModalLabel">Tạo đơn hàng</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="create-new-bill">Tao moi</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" class="btn btn-primary" data-toggle="modal" id="warning" data-target="#modal-warning"></button>
+
+<div id="modal-warning" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        //var addBillProduct = document.forms['add-bill-product'];
+        //var addBill = document.forms['add-bill'];
+        //var btnCreateNewBill = document.getElementById('create-new-bill');
+        var table = document.getElementById("bill-table");
+        var rows = table.getElementsByTagName("tr");
+        var ulProductName = document.getElementById('product-name');
+        var ulQuantity = document.getElementById('product-quantity');
+        var ulMulti = document.getElementById('product-multi');
+        var ulEqual = document.getElementById('product-equal');
+        var ulPrice = document.getElementById('product-price');
+        var ulIntoMoney = document.getElementById('product-into-money');
+        var totalPrice = document.getElementById('product-total');
+        var warning = document.getElementById('warning');
+        var modalWarning = document.getElementById('modal-warning');
+        const numProduct = 100;
+        var ketqua;
+        var arr = [];
+        var currentRow;
+        var createClickHandler;
+        var cellPrice;
+        var cellProduct;
+        var valueProduct;
+        var valueQuantity;
+        var valuePrice;
+        var valueIntoMoney;
+        var products;
+        var key;
+        var nameAttribute;
+        var count;
+        var numberTotalPrice;
+        let total = 0;
+
+        function multiple(a, b) {
+            let resultMulti = a * b;
+            return resultMulti;
+        }
+
+        function sumTotal(price) {
+            //console.log('quantity', quantity);
+            //console.log('price', price);
+            return total = total + price;
+            //return formatNum;
+        }
+
+
+
+        function addRowHandler(event) {
+            if (rows[1].innerText === 'No data available in table') {
+                event.preventDefault();
+            } else {
+                for (let i = 0; i < rows.length; i++) {
+                    currentRow = table.rows[i];
+                    createClickHandler = function (row) {
+                        return function () {
+                            let inputProductName = document.createElement('input');
+                            let selectQuantity = document.createElement('select');
+                            let inputPrice = document.createElement('input');
+                            let inputIntoMoney = document.createElement('input');
+                            let divMulti = document.createElement('input');
+                            let divEqual = document.createElement('input');
+                            for (let i = 1; i <= numProduct; i++) {
+                                var optionQuantity = document.createElement('option');
+                                optionQuantity.setAttribute('class', 'choose');
+                                optionQuantity.innerText = i;
+                                selectQuantity.appendChild(optionQuantity);
+                            }
+                            $('window').on('load', function () {
+                                modalWarning.modal('show')
+                            })
+                            cellProduct = row.getElementsByTagName("td")[1];
+                            cellPrice = row.getElementsByTagName("td")[2];
+                            valueProduct = cellProduct.innerText;
+                            valuePrice = cellPrice.innerText;
+                            console.log('cell product', cellProduct)
+                            products = {
+                                product: {
+                                    index: i,
+                                    productName: valueProduct,
+                                    price: valuePrice,
+                                }
+                            }
+                            arr.push(products)
+                            key = Object.keys(arr[0]);
+                            for (let eArr of key) {
+                                count = document.getElementById('count');
+                                count.innerText = arr.length;
+                                if (eArr === 'product') {
+                                    for (let i = 0; i < arr.length; i++) {
+                                        nameAttribute = Object.keys(arr[i].product)
+                                        inputProductName.setAttribute('class', 'form-control form-control-sm bg-white focus mb-1');
+                                        inputProductName.setAttribute('type', 'text');
+                                        inputProductName.setAttribute('name', `${nameAttribute[0]}`);
+                                        inputProductName.setAttribute('disabled', 'disabled');
+                                        inputProductName.value = arr[i].product.productName;
+
+                                        selectQuantity.setAttribute('class', 'form-control form-control-sm bg-white text-right mb-1');
+                                        selectQuantity.setAttribute('type', 'text');
+                                        selectQuantity.setAttribute('name', `${nameAttribute[1]}`);
+                                        ulQuantity.appendChild(selectQuantity);
+
+                                        inputPrice.setAttribute('class', 'price form-control form-control-sm bg-white focus text-right mb-1');
+                                        inputPrice.setAttribute('type', 'text');
+                                        inputPrice.setAttribute('disabled', 'disabled');
+                                        inputPrice.setAttribute('name', `${nameAttribute[2]}`);
+                                        inputPrice.value = arr[i].product.price;
+
+                                        inputIntoMoney.setAttribute('class', 'into-money form-control form-control-sm bg-white focus text-right mb-1');
+                                        inputIntoMoney.setAttribute('type', 'text');
+                                        inputIntoMoney.setAttribute('disabled', 'disabled');
+                                        inputIntoMoney.setAttribute('name', `${nameAttribute[3]}`);
+                                        inputIntoMoney.value = multiple(inputPrice.value, selectQuantity.value);
+
+
+                                        ulProductName.appendChild(inputProductName);
+                                        ulPrice.appendChild(inputPrice);
+                                        ulIntoMoney.appendChild(inputIntoMoney);
+                                    }
+
+                                }
+                            }
+                                
+
+                            let tamp = parseInt(inputIntoMoney.value);
+                            selectQuantity.addEventListener('change', function (e) {
+                                let numberQuantity = parseInt(e.target.value);
+                                let multi = multiple(numberQuantity, inputPrice.value);
+                                console.log('mul', multi);
+                                console.log('tamp', tamp);
+                                ketqua = numberTotalPrice + multi - valuePrice;
+                                totalPrice.value = ketqua;
+                                inputIntoMoney.value = multi;
+                                console.log('ketqua', ketqua);
+                                tamp = parseInt(valuePrice);
+                            })
+                            let numberTotalPrice = sumTotal(parseInt(inputPrice.value));
+                            totalPrice.value = numberTotalPrice;
+                        };
+                    };
+                    currentRow.onclick = createClickHandler(currentRow);
+                }
+            }
+        }
+
+
+
+        addRowHandler(event);
+
+        //btnCreateNewBill.onclick = function () {
+        //addBill.submit()
+        //addBillProduct.submit()
+        //}
+
+        $(document).ready(function () {
+            $('#bill-table').DataTable();
+        });
+    })
+</script>

@@ -8,6 +8,10 @@ html,body {
 
 textarea { resize:none; }
 
+.bg-total {
+    background-color: #2de5e5 !important;
+}
+
 h1 {
     color: $red-text;
 }
@@ -93,14 +97,18 @@ h1 {
 
 .khung {
     min-width: auto;
-    min-height: 1024px;
+    min-height: 700px;
+}
+
+.khung-border{
+    min-height: 790px;
 }
 
 .san-pham-scroll {
     min-width: auto;
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 400px;
+    max-height: 610px;
     padding-right: 1px;
 }
 

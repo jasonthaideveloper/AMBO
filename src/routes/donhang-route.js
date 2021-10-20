@@ -15,6 +15,8 @@ router.delete('/:id/destroy', donhangController.destroyDonHang);
 
 router.get('/kho-luu-tru', donhangController.storedDonHang);
 
+router.get('/tao', donhangController.createDonHang);
+
 router.get('/', donhangController.getDonHang);
 
 module.exports = router;
