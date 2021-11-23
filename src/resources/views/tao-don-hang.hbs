@@ -6,7 +6,11 @@
                 Quay lại
             </a>
         </h5>
-        <h2 class="mt-4 text-primary">Tạo đơn hàng</h2>
+        <h2 class="mt-3 text-primary">Tạo đơn hàng</h2>
+        <div class="d-flex justify-content-left mt-3">
+            <a id="add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i
+                    class="fas fa-plus mr-2"></i>Thêm mới</a>
+        </div>
     </div>
     <ul class="list-group mt-4">
         <li class="list-group-item">
@@ -106,17 +110,9 @@
                                     <div class="col-md-2">
                                         <label for="exampleFormControlInput1" class="mr-2">Số lượng</label>
                                     </div>
-                                    {{!-- <div class="col-md-1"> --}}
-                                        {{!-- <label for="exampleFormControlInput1" class="mr-2 text-center">x</label>
-                                        --}}
-                                        {{!-- </div> --}}
                                     <div class="col-md-3">
                                         <label for="exampleFormControlInput1" class="mr-2">Đơn giá</label>
                                     </div>
-                                    {{!-- <div class="col-md-1"> --}}
-                                        {{!-- <label for="exampleFormControlInput1" class="mr-2 text-center">=</label>
-                                        --}}
-                                        {{!-- </div> --}}
                                     <div class="col-md-3">
                                         <label for="exampleFormControlInput1" class="mr-2">Thành tiền</label>
                                     </div>
@@ -142,15 +138,10 @@
                                 </div>
                             </li>
                         </ul>
-                        {{!-- <div id="product-total-money" class="list-group mt-3 d-flex">
-                            <label for="product-total" class="text-right mr-1">Tạm tính</label>
-                            <input type="text" class="form-control focus col-4 ml-auto bg-white text-right"
-                                id="product-total" name="supplierName" readonly>
-                        </div> --}}
                         <div id="product-total-money" class="list-group mt-3 d-flex">
                             <label for="product-total" class="text-right mr-1">Tổng tiền</label>
                             <input type="text" class="form-control focus col-4 ml-auto bg-white text-right"
-                                id="product-total" name="supplierName" readonly>
+                                id="product-total" name="total" readonly>
                         </div>
                     </div>
                 </div>
@@ -158,56 +149,12 @@
         </li>
     </ul>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <h5 class="modal-title text-light" id="exampleModalLabel">Tạo đơn hàng</h5>
-                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="create-new-bill">Tao moi</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<button type="button" class="btn btn-primary" data-toggle="modal" id="warning" data-target="#modal-warning"></button>
-
-<div id="modal-warning" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
         //var addBillProduct = document.forms['add-bill-product'];
-        //var addBill = document.forms['add-bill'];
-        //var btnCreateNewBill = document.getElementById('create-new-bill');
+        var addBill = document.forms['add-bill'];
+        var btnCreateNewBill = document.getElementById('add');
         var table = document.getElementById("bill-table");
         var rows = table.getElementsByTagName("tr");
         var ulProductName = document.getElementById('product-name');
@@ -234,22 +181,16 @@
         var key;
         var nameAttribute;
         var count;
-        var numberTotalPrice;
-        let total = 0;
 
         function multiple(a, b) {
             let resultMulti = a * b;
             return resultMulti;
         }
 
+        let total = 0;
         function sumTotal(price) {
-            //console.log('quantity', quantity);
-            //console.log('price', price);
-            return total = total + price;
-            //return formatNum;
+            return total += price;
         }
-
-
 
         function addRowHandler(event) {
             if (rows[1].innerText === 'No data available in table') {
@@ -271,91 +212,104 @@
                                 optionQuantity.innerText = i;
                                 selectQuantity.appendChild(optionQuantity);
                             }
-                            $('window').on('load', function () {
-                                modalWarning.modal('show')
-                            })
                             cellProduct = row.getElementsByTagName("td")[1];
                             cellPrice = row.getElementsByTagName("td")[2];
                             valueProduct = cellProduct.innerText;
                             valuePrice = cellPrice.innerText;
-                            console.log('cell product', cellProduct)
                             products = {
                                 product: {
-                                    index: i,
                                     productName: valueProduct,
                                     price: valuePrice,
                                 }
                             }
-                            arr.push(products)
+                            arr.push(products);
                             key = Object.keys(arr[0]);
                             for (let eArr of key) {
                                 count = document.getElementById('count');
                                 count.innerText = arr.length;
                                 if (eArr === 'product') {
+                                    var selectIDs = [];
+                                    var inputIDs = [];
+                                    var inputMoneys = [];
+                                    var orderTotal;
+                                    // Create our number formatter.
+                                    var formatter = new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    });
                                     for (let i = 0; i < arr.length; i++) {
                                         nameAttribute = Object.keys(arr[i].product)
-                                        inputProductName.setAttribute('class', 'form-control form-control-sm bg-white focus mb-1');
+                                        inputProductName.setAttribute('class', 'form-control form-control-sm bg-white focus mb-1 disabled');
                                         inputProductName.setAttribute('type', 'text');
-                                        inputProductName.setAttribute('name', `${nameAttribute[0]}`);
-                                        inputProductName.setAttribute('disabled', 'disabled');
+                                        inputProductName.setAttribute('name', 'productName');
+                                        //inputProductName.setAttribute('disabled', 'disabled');
                                         inputProductName.value = arr[i].product.productName;
 
+                                        selectQuantity.setAttribute('id', `select${i}`);
                                         selectQuantity.setAttribute('class', 'form-control form-control-sm bg-white text-right mb-1');
                                         selectQuantity.setAttribute('type', 'text');
-                                        selectQuantity.setAttribute('name', `${nameAttribute[1]}`);
+                                        selectQuantity.setAttribute('name', 'quantity');
                                         ulQuantity.appendChild(selectQuantity);
 
-                                        inputPrice.setAttribute('class', 'price form-control form-control-sm bg-white focus text-right mb-1');
+                                        inputPrice.setAttribute('id', `input${i}`);
+                                        inputPrice.setAttribute('class', 'price form-control form-control-sm bg-white focus text-right mb-1 disabled');
                                         inputPrice.setAttribute('type', 'text');
-                                        inputPrice.setAttribute('disabled', 'disabled');
-                                        inputPrice.setAttribute('name', `${nameAttribute[2]}`);
+                                        //inputPrice.setAttribute('disabled', 'disabled');
+                                        inputPrice.setAttribute('name', 'price');
                                         inputPrice.value = arr[i].product.price;
 
-                                        inputIntoMoney.setAttribute('class', 'into-money form-control form-control-sm bg-white focus text-right mb-1');
+                                        inputIntoMoney.setAttribute('id', `input-money${i}`);
+                                        inputIntoMoney.setAttribute('class', 'into-money form-control form-control-sm bg-white focus text-right mb-1 disabled');
                                         inputIntoMoney.setAttribute('type', 'text');
-                                        inputIntoMoney.setAttribute('disabled', 'disabled');
-                                        inputIntoMoney.setAttribute('name', `${nameAttribute[3]}`);
+                                        //inputIntoMoney.setAttribute('disabled', 'disabled');
+                                        inputIntoMoney.setAttribute('name', 'intoMoney');
                                         inputIntoMoney.value = multiple(inputPrice.value, selectQuantity.value);
 
 
                                         ulProductName.appendChild(inputProductName);
                                         ulPrice.appendChild(inputPrice);
                                         ulIntoMoney.appendChild(inputIntoMoney);
+                                        selectIDs.push(`select${i}`);
+                                        inputIDs.push(`input${i}`);
+                                        inputMoneys.push(`input-money${i}`);
                                     }
-
+                                    totalPrice.value = sumTotal(parseInt(inputIntoMoney.value));
                                 }
                             }
-                                
 
-                            let tamp = parseInt(inputIntoMoney.value);
                             selectQuantity.addEventListener('change', function (e) {
-                                let numberQuantity = parseInt(e.target.value);
-                                let multi = multiple(numberQuantity, inputPrice.value);
-                                console.log('mul', multi);
-                                console.log('tamp', tamp);
-                                ketqua = numberTotalPrice + multi - valuePrice;
-                                totalPrice.value = ketqua;
-                                inputIntoMoney.value = multi;
-                                console.log('ketqua', ketqua);
-                                tamp = parseInt(valuePrice);
+                                let formInputMoney = document.querySelectorAll('.into-money');
+                                let tamp = [];
+                                for (let u of formInputMoney) {
+                                    tamp.push(parseInt(u.value));
+                                }
+                                for (let i in selectIDs) {
+                                    let formSelect = document.getElementById(`select${i}`);
+                                    let formInput = document.getElementById(`input${i}`);
+                                    orderTotal = (parseInt(formSelect.options[formSelect.selectedIndex].value) * parseInt(formInput.value));
+                                    tamp.splice(i, 1, orderTotal);
+
+                                }
+                                inputIntoMoney.value = orderTotal;
+                                let numberTotalPrice = 0;
+                                for (let price of tamp) {
+                                    numberTotalPrice += price;
+                                }
+                                totalPrice.value = numberTotalPrice;
                             })
-                            let numberTotalPrice = sumTotal(parseInt(inputPrice.value));
-                            totalPrice.value = numberTotalPrice;
                         };
                     };
                     currentRow.onclick = createClickHandler(currentRow);
+
                 }
             }
         }
 
-
-
         addRowHandler(event);
 
-        //btnCreateNewBill.onclick = function () {
-        //addBill.submit()
-        //addBillProduct.submit()
-        //}
+        btnCreateNewBill.onclick = function () {
+            addBill.submit();
+        }
 
         $(document).ready(function () {
             $('#bill-table').DataTable();

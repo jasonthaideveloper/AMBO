@@ -14,14 +14,12 @@ const Bill = new Schema({
     billName: { type: String },
     customerId: { type: String },
     customerName: { type: String },
-    products: [
-        {
-            productName: {type:String},
-            intoMoney: {type:String},
-            quantity: {type:String},
-            price: {type:String},
-        }, {timestamps: true}
-    ],
+    products: [{
+        productName: { type: String },
+        intoMoney: { type: String },
+        quantity: { type: String },
+        price: { type: String }
+    }],
     placeOfDelivery: { type: String },
     total: { type: Number },
     payments: { type: String },

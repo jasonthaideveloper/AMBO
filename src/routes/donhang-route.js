@@ -3,7 +3,7 @@ const router = express.Router();
 
 const donhangController = require('../app/controllers/DonHangController');
 
-router.post('/', donhangController.postDonHang);
+router.post('/tao', donhangController.postDonHang);
 
 router.put('/:id', donhangController.updateDonHang);
 

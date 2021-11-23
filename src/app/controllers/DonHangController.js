@@ -4,22 +4,18 @@ const Customer = require('../models/KhachHangModel');
 const Transportation = require('../models/HinhThucVanChuyenModel');
 const Payments = require('../models/HinhThucThanhToanModel');
 const Product = require('../models/SanPhamModel');
-const ProductInBill = require('../models/DonHangModel');
 const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoose');
 
 class DonHangController {
     // [GET] /thuoc-tinh-chung
     createDonHang(req, res, next) {
-        Promise.all([Customer.find({}), Supplier.find({}), Bill.find({}), Transportation.find(), Payments.find(), Product.find(), Bill.countDocumentsDeleted()])
-            .then(([customers, suppliers, bills, transportations, payments, products, deletedCount]) => {
+        Promise.all([Customer.find({}), Transportation.find(), Payments.find(), Product.find()])
+            .then(([customers, transportations, payments, products]) => {
                 return res.render('tao-don-hang', {
                     customers: multipleMongooseToObject(customers),
-                    suppliers: multipleMongooseToObject(suppliers),
-                    bills: multipleMongooseToObject(bills),
                     transportations: multipleMongooseToObject(transportations),
                     payments: multipleMongooseToObject(payments),
                     products: multipleMongooseToObject(products),
-                    deletedCount
                 });
             }
             )
@@ -27,26 +23,36 @@ class DonHangController {
     }
 
     getDonHang(req, res, next) {
-        // Promise.all([Customer.find({}), Supplier.find({}), Bill.find({}), Transportation.find(), Payments.find(), Product.find(), Bill.countDocumentsDeleted()])
-        //     .then(([customers, suppliers, bills, transportations, payments, products, deletedCount]) => {
-        //         return res.render('don-hang', {
-        //             customers: multipleMongooseToObject(customers),
-        //             suppliers: multipleMongooseToObject(suppliers),
-        //             bills: multipleMongooseToObject(bills),
-        //             transportations: multipleMongooseToObject(transportations),
-        //             payments: multipleMongooseToObject(payments),
-        //             products: multipleMongooseToObject(products),
-        //             deletedCount
-        //         });
-        //     }
-        //     )
-        //     .catch(next);
-        res.render('don-hang');
+        Promise.all([Bill.find({}), Bill.countDocumentsDeleted()])
+            .then(([bills, deletedCount]) => {
+                return res.render('don-hang', {
+                    bills: multipleMongooseToObject(bills),
+                    deletedCount
+                });
+            })
+            .catch(next);
     }
 
     postDonHang(req, res, next) {
-        console.log(req.body);
-        const bill = new Bill(req.body);
+        console.log(req.body.productName);
+        const request = {
+            billId: req.body.billId,
+            billName: req.body.billName,
+            customerId: req.body.customerId,
+            customerName: req.body.customerName,
+            products: [{
+                productName: req.body.productName,
+                quantity: req.body.quantity,
+                price: req.body.price,
+                intoMoney: req.body.intoMoney
+            }],
+            placeOfDelivery: req.body.placeOfDelivery,
+            total: req.body.total,
+            payments: req.body.payments,
+            transportation: req.body.transportation,
+            description: req.description,
+        }
+        const bill = new Bill(request);
         console.log(bill);
         bill.save()
             .then(() => res.redirect('/don-hang'))
