@@ -1,153 +1,160 @@
-<div class="container-fluid mt-3">
-    <div>
-        <h5 class="text-primary">
+<div class="thanh-nav bg-dark sticky-top">
+    <div class="d-flex justify-content-between ml-4 pt-3 pb-2">
+        <h4 class="">
             <a href="/don-hang" type="button" class="text-decoration-none">
-                <i class="fas fa-arrow-left mr-2"></i>
-                Quay lại
+                <i class="ti-arrow-left text-light"></i>
             </a>
-        </h5>
-        <h2 class="mt-3 text-primary">Tạo đơn hàng</h2>
-        <div class="d-flex justify-content-left mt-3">
-            <a id="add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i
+        </h4>
+        <h2 class="text-light">TẠO ĐƠN HÀNG</h2>
+        <div class="mr-4">
+            <a id="add" type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#modal-add"><i
                     class="fas fa-plus mr-2"></i>Thêm mới</a>
         </div>
     </div>
-    <ul class="list-group mt-4">
-        <li class="list-group-item">
-            <form id="add-bill" method="POST">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="border-right khung-border">
-                            <div class="row mr-2">
-                                <div class="col-md-3">
-                                    <label for="bill-id">Mã HĐ</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="bill-id"
-                                        name="billId">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="bill-name">Tên hóa đơn</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="bill-name"
-                                        name="billName">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="customer-id">Mã KH</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="customer-id"
-                                        name="customerId">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="customer-name">Tên khách hàng</label>
-                                    <select class="form-control form-control-sm" id="customer-name" name="customerName">
-                                        {{#each customers}}
-                                        <option>{{this.customerName}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mr-2 mt-2">
-                                <div class="col-md-4">
-                                    <label for="place-of-delivery">Địa chỉ giao hàng</label>
-                                    <input type="text" class="form-control form-control-sm focus" id="place-of-delivery"
-                                        name="placeOfDelivery">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="bill-payments">Hình thức thanh toán</label>
-                                    <select class="form-control form-control-sm" id="bill-payments" name="payments">
-                                        {{#each payments}}
-                                        <option>{{this.title}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="bill-transportation">Hình thức vận chuyển</label>
-                                    <select class="form-control form-control-sm" id="bill-transportation"
-                                        name="transportation">
-                                        {{#each transportations}}
-                                        <option>{{this.title}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mr-4 mt-2">
-                                <label for="bill-description">Mô tả</label>
-                                <textarea rows="2" type="text" class="form-control form-control-sm focus"
-                                    id="bill-description" name="description"></textarea>
-                            </div>
-
-                            <div class="mt-3 mr-4">
-                                <table class="table table-hover table-sm" id="bill-table">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th scope="col">#</th>
-                                            <th scope="col">Mã sản phẩm</th>
-                                            <th scope="col">Tên sản phẩm</th>
-                                            <th scope="col">Đơn giá</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{#each products}}
-                                        <tr class="text-center">
-                                            <th scope="row">{{sum @index 1}}</th>
-                                            <td><a href="/chi-tiet">{{this.productId}}</a></td>
-                                            <td aria-valuetext="Ten san pham 1">{{this.productName}}</td>
-                                            <td aria-valuetext="Ten san pham 1">{{this.productPriceOut}}</td>
-                                        </tr>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
+</div>
+<div class="container-content list-group-item bg-xanh-xam text-light pt-4">
+    <form id="add-bill" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="border-right khung-border border-info">
+                    <div class="row mr-2">
+                        <div class="col-md-3">
+                            <label for="bill-id">Mã HĐ</label>
+                            <input type="text" class="form-control form-control-sm focus border-info" id="bill-id"
+                                name="billId">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="bill-name">Tên hóa đơn</label>
+                            <input type="text" class="form-control form-control-sm focus border-info" id="bill-name"
+                                name="billName">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="customer-id">Mã KH</label>
+                            <input type="text" class="form-control form-control-sm focus border-info" id="customer-id"
+                                name="customerId">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="customer-name">Tên khách hàng</label>
+                            <select class="form-control form-control-sm border-info" id="customer-name"
+                                name="customerName">
+                                {{#each customers}}
+                                <option>{{this.customerName}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <ul class="list-group">
-                            <li class="list-group-item khung">
-                                <label for="exampleFormControlInput1" class="mr-2">Sản phẩm:</label><span
-                                    id="count"></span>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="exampleFormControlInput1" class="mr-2">Tên sản phẩm</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="exampleFormControlInput1" class="mr-2">Số lượng</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="exampleFormControlInput1" class="mr-2">Đơn giá</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="exampleFormControlInput1" class="mr-2">Thành tiền</label>
-                                    </div>
-                                </div>
-                                <div class="row san-pham-scroll">
-                                    <div class="col-md-4">
-                                        <ul id="product-name" class="list-group">
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <ul id="product-quantity" class="list-group">
-                                        </ul>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <ul id="product-price" class="list-group">
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <ul id="product-into-money" class="list-group">
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div id="product-total-money" class="list-group mt-3 d-flex">
-                            <label for="product-total" class="text-right mr-1">Tổng tiền</label>
-                            <input type="text" class="form-control focus col-4 ml-auto bg-white text-right"
-                                id="product-total" name="total" readonly>
+                    <div class="row mr-2 mt-2">
+                        <div class="col-md-4">
+                            <label for="place-of-delivery">Địa chỉ giao hàng</label>
+                            <input type="text" class="form-control form-control-sm focus border-info"
+                                id="place-of-delivery" name="placeOfDelivery">
                         </div>
+                        <div class="col-md-4">
+                            <label for="bill-payments">Hình thức thanh toán</label>
+                            <select class="form-control form-control-sm border-info" id="bill-payments" name="payments">
+                                {{#each payments}}
+                                <option>{{this.title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="bill-transportation">Hình thức vận chuyển</label>
+                            <select class="form-control form-control-sm border-info" id="bill-transportation"
+                                name="transportation">
+                                {{#each transportations}}
+                                <option>{{this.title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mr-4 mt-2">
+                        <label for="bill-description">Mô tả</label>
+                        <textarea rows="2" type="text" class="form-control form-control-sm focus border-info"
+                            id="bill-description" name="description"></textarea>
+                    </div>
+
+                    <div class="mt-3 mr-4">
+                        <table class="table table-hover table-sm compact" id="bill-table">
+                            <thead>
+                                <tr class="text-center text-light">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Mã sản phẩm</th>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Đơn giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each products}}
+                                <tr>
+                                    <th class="text-center border-info" scope="row">{{sum @index 1}}</th>
+                                    <td class="text-center border-info"><a href="/chi-tiet">{{this.productId}}</a>
+                                    </td>
+                                    <td class="text-center border-info" aria-valuetext="ten-san-pham">
+                                        {{this.productName}}</td>
+                                    <td class="text-right border-info" aria-valuetext="gia-ban">
+                                        {{this.productPriceOut}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </form>
-        </li>
-    </ul>
+            </div>
+
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item khung bg-xanh-xam-nhat">
+                        <label for="exampleFormControlInput1" class="mr-2">Sản phẩm:</label><span id="count" class="text-primary"></span>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="exampleFormControlInput1" class="mr-2">Tên sản phẩm</label>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="exampleFormControlInput1" class="mr-2">Số lượng</label>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="exampleFormControlInput1" class="mr-2">Đơn giá</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="exampleFormControlInput1" class="mr-2">Thành tiền</label>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="exampleFormControlInput1" class="mr-2">Xóa</label>
+                            </div>
+                        </div>
+                        <div class="row san-pham-scroll">
+                            <div class="col-md-4">
+                                <ul id="product-name" class="list-group">
+                                </ul>
+                            </div>
+                            <div class="col-md-2">
+                                <ul id="product-quantity" class="list-group">
+                                </ul>
+                            </div>
+
+                            <div class="col-md-2">
+                                <ul id="product-price" class="list-group">
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <ul id="product-into-money" class="list-group">
+                                </ul>
+                            </div>
+                            <div class="col-md-1 justyfi-content-center">
+                                <ul id="delete" class="list-group">
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div id="product-total-money" class="list-group mt-3 d-flex text-light">
+                    <label for="product-total" class="text-right mr-1">Tổng tiền</label>
+                    <input type="text" class="form-control focus col-4 ml-auto bg-white text-right" id="product-total"
+                        name="total" readonly>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -157,6 +164,7 @@
         var btnCreateNewBill = document.getElementById('add');
         var table = document.getElementById("bill-table");
         var rows = table.getElementsByTagName("tr");
+        var ulDeleteProduct = document.getElementById('delete');
         var ulProductName = document.getElementById('product-name');
         var ulQuantity = document.getElementById('product-quantity');
         var ulMulti = document.getElementById('product-multi');
@@ -206,6 +214,8 @@
                             let inputIntoMoney = document.createElement('input');
                             let divMulti = document.createElement('input');
                             let divEqual = document.createElement('input');
+                            let deleteProduct = document.createElement('button');
+                            let spanClose = document.createElement('i');
                             for (let i = 1; i <= numProduct; i++) {
                                 var optionQuantity = document.createElement('option');
                                 optionQuantity.setAttribute('class', 'choose');
@@ -239,10 +249,10 @@
                                     });
                                     for (let i = 0; i < arr.length; i++) {
                                         nameAttribute = Object.keys(arr[i].product)
-                                        inputProductName.setAttribute('class', 'form-control form-control-sm bg-white focus mb-1 disabled');
+                                        inputProductName.setAttribute('class', 'form-control form-control-sm bg-white focus mb-1 border-bottom');
                                         inputProductName.setAttribute('type', 'text');
                                         inputProductName.setAttribute('name', 'productName');
-                                        //inputProductName.setAttribute('disabled', 'disabled');
+                                        inputProductName.setAttribute('disabled', 'disabled');
                                         inputProductName.value = arr[i].product.productName;
 
                                         selectQuantity.setAttribute('id', `select${i}`);
@@ -254,21 +264,35 @@
                                         inputPrice.setAttribute('id', `input${i}`);
                                         inputPrice.setAttribute('class', 'price form-control form-control-sm bg-white focus text-right mb-1 disabled');
                                         inputPrice.setAttribute('type', 'text');
-                                        //inputPrice.setAttribute('disabled', 'disabled');
+                                        inputPrice.setAttribute('disabled', 'disabled');
                                         inputPrice.setAttribute('name', 'price');
                                         inputPrice.value = arr[i].product.price;
 
                                         inputIntoMoney.setAttribute('id', `input-money${i}`);
                                         inputIntoMoney.setAttribute('class', 'into-money form-control form-control-sm bg-white focus text-right mb-1 disabled');
                                         inputIntoMoney.setAttribute('type', 'text');
-                                        //inputIntoMoney.setAttribute('disabled', 'disabled');
+                                        inputIntoMoney.setAttribute('disabled', 'disabled');
                                         inputIntoMoney.setAttribute('name', 'intoMoney');
                                         inputIntoMoney.value = multiple(inputPrice.value, selectQuantity.value);
 
+                                        deleteProduct.setAttribute('id', `delete-product${i}`);
+                                        deleteProduct.setAttribute('class', 'btn btn-danger btn-sm mb-1 btn-31 rounded-circle');
+                                        deleteProduct.setAttribute('type', 'button');
+                                        deleteProduct.setAttribute('aria-label', 'Close');
+
+                                        spanClose.setAttribute('class', 'ti-close');
+
+                                        deleteProduct.appendChild(spanClose);
+                                        //deleteProduct.setAttribute('name', 'intoMoney');
+                                        //inputIntoMoney.value = multiple(inputPrice.value, selectQuantity.value);
+
 
                                         ulProductName.appendChild(inputProductName);
+
                                         ulPrice.appendChild(inputPrice);
+
                                         ulIntoMoney.appendChild(inputIntoMoney);
+                                        ulDeleteProduct.appendChild(deleteProduct);
                                         selectIDs.push(`select${i}`);
                                         inputIDs.push(`input${i}`);
                                         inputMoneys.push(`input-money${i}`);
@@ -312,7 +336,16 @@
         }
 
         $(document).ready(function () {
-            $('#bill-table').DataTable();
+            $('#bill-table').DataTable({
+                autoWidth: false,
+                columnDefs: [
+                    {
+                        targets: ['_all'],
+                        className: 'mdc-data-table__cell'
+                    }
+                ]
+            });
+
         });
     })
 </script>

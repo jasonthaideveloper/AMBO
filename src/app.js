@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
@@ -37,11 +38,11 @@ app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'resources/views'));
 console.log('Path', path.join(__dirname, '/resources/views'));
 
-// Set path img
-
-
 // Get static file from public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// // Get static file from static folder
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

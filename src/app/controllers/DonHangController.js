@@ -5,6 +5,9 @@ const Transportation = require('../models/HinhThucVanChuyenModel');
 const Payments = require('../models/HinhThucThanhToanModel');
 const Product = require('../models/SanPhamModel');
 const { multipleMongooseToObject, mongooseToOject } = require('../../util/mongoose');
+const formidable = require('formidable');
+const fs = require('fs');
+const path = require('path');
 
 class DonHangController {
     // [GET] /thuoc-tinh-chung
@@ -57,6 +60,45 @@ class DonHangController {
         bill.save()
             .then(() => res.redirect('/don-hang'))
             .catch(next)
+    }
+
+    posthinh(req, res, next) {
+        console.log("form", formidable);
+        var form = new formidable.IncomingForm();
+        console.log('form', form);
+        form.uploadDir = '/img';
+        form.keepExtensions = true;
+        form.maxFieldsSize = 10 * 1024 * 1024; //10mb
+        form.multiples = true;
+        form.parse(req, (err, fields, files) => {
+            if (err) {
+                res.json({
+                    result: "failed",
+                    data: {},
+                    message: `Cannot upload images. Error is: ${err}`
+                });
+            }
+            var arrayOfFiles = files[""];
+            if (arrayOfFiles.length > 0) {
+                var fileNames = [];
+                arrayOfFiles.forEach((eachFile) => {
+                    fileNames.path(eachFile.path)
+                });
+                res.json({
+                    result: "ok",
+                    data: fileNames,
+                    numberOfImages: fileNames.length,
+                    message: "Upload images successfully"
+                });
+            } else {
+                res.json({
+                    result: "failed",
+                    data: {},
+                    numberOfImages: 0,
+                    message: "No images to uploads!"
+                });
+            }
+        });
     }
 
     updateDonHang(req, res, next) {

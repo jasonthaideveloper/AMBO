@@ -5,7 +5,7 @@ const sanphamController = require('../app/controllers/SanPhamController');
 
 router.post('/', sanphamController.postSanPham);
 
-// router.post('/hinh-anh', sanphamController.postHinhAnhSanPham);
+// router.post('/', sanphamController.postHinhAnhSanPham);
 
 router.put('/:id', sanphamController.updateSanPham);
 

@@ -1,51 +1,85 @@
-<div class="card-header bg-primary text-light rounded-0">Bảng Điều Khiển</div>
-<div id="menu">
-    <ul id="overflowTest">
-        <li><a href="/"><i class="fas fa-home mr-2"></i>Tổng quan</a></li>
-        <li><a href="/don-hang"><i class="fas fa-file-invoice-dollar mr-3"></i>Đơn hàng</a></li>
-        <li><a href="/san-pham"><i class="fas fa-store mr-2"></i>Sản phẩm</a></li>
-        <li><a href="/khach-hang"><i class="fas fa-user mr-3"></i>Khách hàng</a></li>
-        <li><a href="/nha-cung-cap"><i class="fas fa-truck-moving mr-2"></i>Nhà cung cấp</a></li>
-        <div class="accordion" id="accordionExample">
-            <li>
+<!--        Sidebar         -->
+<div class="sidebar-container">
+    <div class="sidebar bg-xanh-xam">
+        <ul class="side-list">
+            {{!-- <li><a href="/"><i class="fas fa-home mr-2"></i>Tổng quan</a></li>
+            <li><a href="/don-hang"><i class="fas fa-file-invoice-dollar mr-3"></i>Đơn hàng</a></li>
+            <li><a href="/san-pham"><i class="fas fa-store mr-2"></i>Sản phẩm</a></li>
+            <li><a href="/khach-hang"><i class="fas fa-user mr-3"></i>Khách hàng</a></li>
+            <li><a href="/nha-cung-cap"><i class="fas fa-truck-moving mr-2"></i>Nhà cung cấp</a></li> --}}
+            <li><a href="/"><i class="ti-home"></i>Tổng quan</a></li>
+            <li><a href="/don-hang"><i class="ti-receipt"></i>Đơn hàng</a></li>
+            <li><a href="/san-pham"><i class="ti-shopping-cart"></i>Sản phẩm</a></li>
+            <li><a href="/khach-hang"><i class="ti-user"></i>Khách hàng</a></li>
+            <li><a href="/nha-cung-cap"><i class="ti-email"></i>Hộp thư</a></li>
+
+            <li class="accordion" id="accordionExample">
                 <a type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                     aria-controls="collapseOne">
-                    <i class="fas fa-tools mr-2"></i>
+                    <i class="ti-settings"></i>
                     Cài đặt
-                    <i class="fas fa-angle-down ml-2"></i>
+                    <i class="ti-arrow-circle-down"></i>
                 </a>
             </li>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="bg-dark">
+            {{!-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="bg-xanh-xam">
                     <div class="hover">
-                        <a href="/loai-san-pham" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-divide mr-2"></i></i>Loại sản phẩm</a>
+                        <a href="/loai-san-pham" class="btn btn-block text-light rounded-0 text-left"><i
+                                class="fas fa-divide mr-2"></i></i>Loại sản phẩm</a>
                     </div>
                     <div class="hover">
-                        <a href="/don-vi-tinh" class="btn btn-block text-light rounded-0 text-left"><i class="fab fa-untappd mr-2"></i>Đơn vị tính</a>
+                        <a href="/don-vi-tinh" class="btn btn-block text-light rounded-0 text-left"><i
+                                class="fab fa-untappd mr-2"></i>Đơn vị tính</a>
                     </div>
                     <div class="hover">
-                        <a href="/thuoc-tinh" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-balance-scale-right mr-2"></i>Thuộc tính</a>
-                    </div>
-                    {{!-- <div class="hover">
-                        <a href="/the-tich" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-glass-whiskey mr-2"></i>Thể tích</a>
+                        <a href="/thuoc-tinh" class="btn btn-block text-light rounded-0 text-left"><i
+                                class="fas fa-balance-scale-right mr-2"></i>Thuộc tính</a>
                     </div>
                     <div class="hover">
-                        <a href="/kich-thuoc" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-ruler mr-2"></i>Kich thước</a>
-                    </div> --}}
-                    {{!-- <div class="hover">
-                        <a href="/quan-huyen" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-map-marker mr-2"></i>Quận / Huyện</a>
-                    </div> --}}
-                    <div class="hover">
-                        <a href="/tinh-thanh-pho" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-city mr-2"></i>Tỉnh / Thành phố</a>
+                        <a href="/tinh-thanh-pho" class="btn btn-block text-light rounded-0 text-left"><i
+                                class="fas fa-city mr-2"></i>Tỉnh / Thành phố</a>
                     </div>
                     <div class="hover">
-                        <a href="/hinh-thuc-thanh-toan" class="btn btn-block text-light rounded-0 text-left"><i class="fab fa-cc-visa mr-2"></i>HT Thanh toán</a>
+                        <a href="/hinh-thuc-thanh-toan" class="btn btn-block text-light rounded-0 text-left"><i
+                                class="fab fa-cc-visa mr-2"></i>HT Thanh toán</a>
                     </div>
                     <div class="hover">
-                        <a href="/hinh-thuc-van-chuyen" class="btn btn-block text-light rounded-0 text-left"><i class="fas fa-truck-moving mr-2"></i>HT Vận chuyển</a>
+                        <a href="/hinh-thuc-van-chuyen" class="btn btn-block text-light rounded-0 text-left"><i
+                                class="fas fa-truck-moving mr-2"></i>HT Vận chuyển</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </ul>
+            </div> --}}
+            <li><a href=""><i class="ti-timer"></i>Lịch</a></li>
+            <li><a href=""><i class="ti-bar-chart"></i>Thống kê</a></li>
+            <li><a href=""><i class="ti-map"></i>Bản đồ</a></li>
+            <li><a href=""><i class="ti-location-pin"></i>Định vị</a></li>
+            <li><a href=""><i class="ti-settings"></i>Cài đặt</a></li>
+            <li><a href=""><i class="ti-bookmark"></i>Bookmark</a></li>
+            <li><a href=""><i class="ti-cup"></i>Thành tựu</a></li>
+            <li><a href=""><i class="ti-comments"></i>Bình luận</a></li>
+            <li><a href=""><i class="ti-announcement"></i>Thông báo</a></li>
+            <li><a href=""><i class="ti-filter"></i>Bộ lọc</a></li>
+            <li><a href=""><i class="ti-book"></i>Tài liệu</a></li>
+            <li><a href=""><i class="ti-cloud-down"></i>File đã tải</a></li>
+            <li><a href=""><i class="ti-help"></i>Trợ giúp</a></li>
+        </ul>
+    </div>
 </div>
+<!--        Sidebar         -->
+<!--    Navigation Bar     -->
+{{!-- <div class="navbar">
+    <div class="logo-content">
+        <img src="/img/download.jpeg" class="logo-img">
+        <h3 class="logo-name cl-cray">Nến thơm Sunrise</h3>
+    </div>
+    <div class="avatar">
+        <h6 class="user-name">Nguyễn Đức Nghĩa</h6>
+        <img src="/img/NguyenNgocDung_ava.jpg" id="tgmenu" alt="Ảnh nhân viên">
+        <ul id="user">
+            <li><a href="#"><i></i>Thông tin</a></li>
+            <li><a href="#"><i></i>Đổi mật khẩu</a></li>
+            <li><a href="/"><i></i>Đăng xuất</a></li>
+        </ul>
+    </div>
+</div> --}}
+<!--    Navigation Bar     -->

@@ -1,15 +1,14 @@
-<div class="container-fluid mt-3">
-    <div>
-        <h2 class="text-primary">Danh sách Sản phẩm</h2>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="san-pham/kho-luu-tru" type="button" class="btn btn-outline-danger"><i
-                    class="fas fa-archive mr-2"></i>Kho lưu trữ<span
-                    class="badge badge-info ml-3">{{deletedCount}}</span></a>
-            <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i
-                    class="fas fa-plus mr-2"></i>Thêm mới</a>
-        </div>
+<div class="container-content">
+    <div class="d-flex justify-content-between mr-4 ml-4 mt-3">
+        <a href="san-pham/kho-luu-tru" type="button" class="btn btn-outline-danger"><i
+                class="fas fa-archive mr-2"></i>Kho lưu trữ<span
+                class="badge badge-info ml-3">{{deletedCount}}</span></a>
+        <h2 class="text-primary">DANH SÁCH SẢN PHẨM</h2>
+
+        <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add"><i
+                class="fas fa-plus mr-2"></i>Thêm mới</a>
     </div>
-    <div class="mt-4">
+    <div class="mr-4 ml-4 mt-4">
         <table class="table table-hover table-sm" id="product-table">
             <thead>
                 <tr class="text-center">
@@ -70,7 +69,7 @@
 </div>
 
 <div class="modal fade" id="modal-detail-product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <div class="d-flex justify-content-between">

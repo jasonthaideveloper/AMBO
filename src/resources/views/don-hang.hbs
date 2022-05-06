@@ -1,29 +1,36 @@
-<div class="container-fluid mt-3">
-    <div>
-        <h2 class="mt-3 text-primary">Danh sách đơn hàng</h2>
-        <div class="d-flex justify-content-between mt-3">
-            <a href="san-pham/kho-luu-tru" type="button" class="btn btn-outline-danger"><i
-                    class="fas fa-archive mr-2"></i>Kho lưu trữ<span
-                    class="badge badge-info ml-3">{{deletedCount}}</span></a>
-            <a type="button" href="/don-hang/tao" class="btn btn-outline-primary">Tạo đơn hàng</a>
-        </div>
+<div class="container-content">
+    <div class="d-flex justify-content-between mr-4 ml-4 mt-3">
+        <a href="san-pham/kho-luu-tru" type="button" class="btn btn-outline-danger"><i class="ti-archive mr-2"></i>Kho
+            lưu trữ<span class="badge badge-info ml-3">{{deletedCount}}</span></a>
+        <h2 class="text-primary text-center cl-cray">DANH SÁCH ĐƠN HÀNG</h2>
+        <a type="button" href="/don-hang/tao" class="btn btn-outline-primary"><i class="ti-plus mr-2"></i>Tạo đơn hàng</a>
     </div>
-    <div class="list-group-item mt-3">
-        {{#each bills}}
-        <div class="card card-width">
-            <div class="card-body">
-                <h5 class="card-title">{{this.billName}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{this.customerName}}</h6>
-                <p class="card-text">{{this.productName}}</p>
-                <p class="card-text">{{this.price}}</p>
-                <p class="card-text">{{this.quantity}}</p>
-                <p class="card-text">{{this.intoMoney}}</p>
-                <p class="card-text">{{this.total}}</p>
-                <p class="card-text">{{this.description}}</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
+
+    <div class="list-group-item mt-3 ml-3 mr-3">
+        <div class="row">
+            {{#each bills}}
+            {{!-- <div class="col-md-3"> --}}
+                {{!-- <div class="col-xl-2"> --}}
+                    <div class="card card-width ml-3 mr-3 mb-3">
+                        <img class="card-img-top" src="/img/download.jpeg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <h5 class="card-title">{{this.billName}}</h5>
+                            <h6 class="card-subtitle">{{this.customerName}}</h6>
+                            <p class="card-text">{{this.productName}}</p>
+                            <p class="card-text">{{this.price}}</p>
+                            <p class="card-text">{{this.quantity}}</p>
+                            <p class="card-text">{{this.intoMoney}}</p>
+                            <p class="card-text">{{this.total}}</p>
+                            <p class="card-text">{{this.description}}</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                    {{!--
+                </div> --}}
+                {{!-- </div> --}}
+            {{/each}}
         </div>
-        {{/each}}
     </div>
 </div>
